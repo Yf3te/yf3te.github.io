@@ -18,61 +18,63 @@
   
     <meta name="description" content="阿里云OSS对象攻防简介 阿里云对象储存（OSS），是阿里云对外提供的海量、安全、低成本、高可靠的云存储服务。数据以对象（Object）的形式存储在OSS的存储空间&#x2F;存储桶（Bucket ）中，并指定Object的文件名（Key）作为其唯一标识。您可以通过本文档提供的简单的REST接口，在任何时间、任何地点、任何互联网设备上进行上传和下载数据。基于OSS，您可以搭建出各种多媒体分享网站、">
 <meta property="og:type" content="article">
-<meta property="og:title" content="阿里云OSS攻防">
-<meta property="og:url" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/index.html">
+<meta property="og:title" content="Oss云存储攻防">
+<meta property="og:url" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/index.html">
 <meta property="og:site_name" content="Yf3te">
 <meta property="og:description" content="阿里云OSS对象攻防简介 阿里云对象储存（OSS），是阿里云对外提供的海量、安全、低成本、高可靠的云存储服务。数据以对象（Object）的形式存储在OSS的存储空间&#x2F;存储桶（Bucket ）中，并指定Object的文件名（Key）作为其唯一标识。您可以通过本文档提供的简单的REST接口，在任何时间、任何地点、任何互联网设备上进行上传和下载数据。基于OSS，您可以搭建出各种多媒体分享网站、">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://uzjumakdown-1256190082.cos.ap-guangzhou.myqcloud.com/UzJuMarkDownImageimage-20220211181113047.png">
 <meta property="og:image" content="https://uzjumakdown-1256190082.cos.ap-guangzhou.myqcloud.com/UzJuMarkDownImageimage-20220212120109881.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%201.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%202.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%203.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%204.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%205.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%206.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%207.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%208.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%209.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2010.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2011.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2012.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2013.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2014.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2015.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2016.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2017.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2018.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2019.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2020.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2021.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2022.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2023.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2024.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2025.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2026.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2027.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2028.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2029.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2030.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2031.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2032.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2033.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2034.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2035.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2036.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2037.png">
-<meta property="og:image" content="http://example.com/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2038.png">
-<meta property="article:published_time" content="2024-08-12T02:46:06.000Z">
-<meta property="article:modified_time" content="2024-08-13T06:09:49.074Z">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140122031.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140220450.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140233142.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140242336.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140253776.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140306422.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140316872.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140326524.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140336639.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140349126.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140357920.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140419195.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140432212.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212133217024.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140549402.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140601717.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140615054.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140648104.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140659657.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212134350154.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageUzJuMarkDownImagedownload_image.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212134841569.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212135014007.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212135053519.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212135121070.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212135244909.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212135316238.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212135948743.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212140112615.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212140129779.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212140150975.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212140256729.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214111642789.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214111722663.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214111722663-1.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214112030036.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214112059318.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214112115270.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214114352567.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214114934078.png">
+<meta property="og:image" content="http://example.com/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214114949942-1.png">
+<meta property="article:published_time" content="2024-08-13T06:50:01.000Z">
+<meta property="article:modified_time" content="2024-08-13T08:16:30.939Z">
 <meta property="article:author" content="Yf3te">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://uzjumakdown-1256190082.cos.ap-guangzhou.myqcloud.com/UzJuMarkDownImageimage-20220211181113047.png">
   
   
   
-  <title>阿里云OSS攻防 - Yf3te</title>
+  <title>Oss云存储攻防 - Yf3te</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -267,7 +269,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="阿里云OSS攻防"></span>
+            <span id="subtitle" data-typed-text="Oss云存储攻防"></span>
           
         </div>
 
@@ -278,8 +280,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-08-12 10:46" pubdate>
-          2024年8月12日 上午
+        <time datetime="2024-08-13 14:50" pubdate>
+          2024年8月13日 下午
         </time>
       </span>
     
@@ -346,7 +348,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">阿里云OSS攻防</h1>
+            <h1 id="seo-header">Oss云存储攻防</h1>
             
             
               <div class="markdown-body">
@@ -362,85 +364,127 @@
 <p>1、无法列出对象</p>
 <p><img src="https://uzjumakdown-1256190082.cos.ap-guangzhou.myqcloud.com/UzJuMarkDownImageimage-20220212120109881.png" srcset="/img/loading.gif" lazyload alt="https://uzjumakdown-1256190082.cos.ap-guangzhou.myqcloud.com/UzJuMarkDownImageimage-20220212120109881.png"></p>
 <p>但是可以直接访问KEY路径</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140122031.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813140122031">
+
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140220450.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813140220450">
+
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140233142.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813140233142">
+
 <p>2、如果想列出Object对象，只需要在Bucket授权策略中设置ListObject即可</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%201.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%202.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140242336.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813140242336">
+
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140253776.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813140253776">
+
 <p>这样再当我们访问存储桶域名的时候就会发现，已经把我们存储桶的东西列出来了</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%203.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140306422.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813140306422">
+
 <h3 id="2、Bucket桶爆破"><a href="#2、Bucket桶爆破" class="headerlink" title="2、Bucket桶爆破"></a>2、Bucket桶爆破</h3><p>当不明确Bucket桶名称时，可以通过爆破获取，类似子域名的枚举。</p>
 <p>当对于阿里云OSS 不存在有两种返回情况，分别是 InvalidBucketName 和 NoSuchBucket</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%204.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140316872.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813140316872">
+
 <p><strong>InvalidBucketName</strong>：表示存储桶的名称不符合规范，属于无效的存储桶名称</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%205.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140326524.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813140326524">
+
 <p><strong>NoSuchBucket</strong>：表示没有这个存储桶</p>
 <p>当存储桶存在时，则会返回以下两种情况</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%206.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%207.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140336639.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813140336639">
+
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140349126.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813140349126">
+
 <p>这样通过返回内容的不同，就可以进行 Bucket 名称爆破了，知道 Bucket 名称后，Key 的爆破就类似目录一般爆破即可。</p>
 <h3 id="3、特定的Bucket策略配置"><a href="#3、特定的Bucket策略配置" class="headerlink" title="3、特定的Bucket策略配置"></a><strong>3、特定的Bucket策略配置</strong></h3><p>特定的策略配置的指的是，如果管理员设置了某些IP，UA才可以请求该存储桶的话，此时如果错误的配置了GetBucketPolicy，可导致攻击者获取策略配置</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%208.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140357920.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813140357920">
+
 <p>可以看到我们此时是没有权限访问该存储桶的，不过我们可以尝试使用aliyun的cli（<a target="_blank" rel="noopener" href="https://shell.aliyun.com/?spm=a2c4g.11186623.0.0.5a9176f1xLSwGL">https://shell.aliyun.com</a>）获取policy</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%209.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140419195.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813140419195">
+
 <p>我们可以看到，需要符合UserAgent为UzJu才可以访问</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2010.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
-<h3 id="4、Bucket-Object遍历"><a href="#4、Bucket-Object遍历" class="headerlink" title="4、Bucket Object遍历"></a><strong>4、Bucket Object遍历</strong></h3><p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2011.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140432212.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813140432212">
+
+<h3 id="4、Bucket-Object遍历"><a href="#4、Bucket-Object遍历" class="headerlink" title="4、Bucket Object遍历"></a><strong>4、Bucket Object遍历</strong></h3><img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212133217024.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220212133217024">
+
 <p>如果设置了ListObject，这将会导致Bucket桶被遍历</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2012.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140549402.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813140549402">
+
 <p>可通过访问Key，来下载Bucket中所有文件</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2013.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140601717.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813140601717">
+
 <h3 id="5、任意文件上传与覆盖"><a href="#5、任意文件上传与覆盖" class="headerlink" title="5、任意文件上传与覆盖"></a><strong>5、任意文件上传与覆盖</strong></h3><p>如果在配置存储桶时，管理员错误的将存储桶权限，配置为可写，这将会导致攻击者可上传任意文件到存储桶中，或覆盖已经存在的文件</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2014.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140615054.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813140615054">
+
 <p>PUT请求上传任意文件。</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2015.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140648104.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813140648104">
+
 <p>GET访问，证明上传文件存在</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2016.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140659657.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813140659657">
+
 <p>如果目标的对象存储是 html、XML 文件时，可以通过浏览器自解析html和xml文件的特性，利用任意文件上传进行 XSS 钓鱼、挂暗链、挂黑页、供应链投毒等操作。也可上传其他格式文件，但无法被利用，因为其只有存储文件功能，无法达到解析效果。</p>
 <h3 id="6、AccessKeyId，SecretAccessKey泄露"><a href="#6、AccessKeyId，SecretAccessKey泄露" class="headerlink" title="6、AccessKeyId，SecretAccessKey泄露"></a><strong>6、AccessKeyId，SecretAccessKey泄露</strong></h3><p>如果目标的 AccessKeyId、SecretAccessKey 泄露，那么就能获取到目标对象存储的所有权限，一般可以通过以下几种方法进行收集：</p>
 <p><strong>1、</strong>通过GitHub等开源平台中的源代码可发现存在泄露的Key</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2017.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212134350154.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220212134350154">
+
 <p><strong>2、</strong>通过反编译APK、小程序，找到敏感信息</p>
 <p><strong>3、</strong>在目标网站源代码中找到（Js等）</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2018.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageUzJuMarkDownImagedownload_image.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageUzJuMarkDownImagedownload_image">
+
 <p>然后在行云管家上直接通过AS、AK接管云存储</p>
 <p>或者使用AK、AS利用工具</p>
 <h3 id="7、Bucket接管"><a href="#7、Bucket接管" class="headerlink" title="7、Bucket接管"></a><strong>7、Bucket接管</strong></h3><p>在阿里云下，当 Bucket 显示 NoSuchBucket 说明是可以接管的，如果显示 AccessDenied 则不行。</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2019.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212134841569.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220212134841569">
+
 <p>假设有以下一种情况，管理员通过域名解析并绑定了一个存储桶，但是管理员将存储桶删除后，没有将域名解析的CNAME删除，这时会访问域名就会出现上面的情况，<strong>NoSuchBucket</strong>。</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2020.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2021.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2022.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212135014007.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220212135014007">
+
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212135053519.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220212135053519">
+
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212135121070.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220212135121070">
+
 <p>现在我们将存储桶删除，就会出现如下情况</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2023.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212135244909.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220212135244909">
+
 <p>现在我们再访问域名会出现如下情况</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2024.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212135316238.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220212135316238">
+
 <p>现在阿里云加了限制，必须在传输管理中配置绑定域名即可。以下情况即可接管该存储桶</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2025.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212135948743.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220212135948743">
+
 <p>当我们访问存储桶的域名时，提示我们NoSuchBucket，这个时候可以登录自己的阿里云账号，创建同样的名称即可</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2026.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2027.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212140112615.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220212140112615">
+
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212140129779.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220212140129779">
+
 <p>此时我们刷新</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2028.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212140150975.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220212140150975">
+
 <p>已经成功接管了该存储桶，尝试上传文件后配置权限公开访问</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2029.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212140256729.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220212140256729">
+
 <h3 id="8、Bucket-策略配置可写"><a href="#8、Bucket-策略配置可写" class="headerlink" title="8、Bucket 策略配置可写"></a><strong>8、Bucket 策略配置可写</strong></h3><p>当我们访问存储桶的时候，会提示我们已经被policy拦截</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2030.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214111642789.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220214111642789">
+
 <p>如果此时配置了存储桶的oss:PutBucketPolicy，就可以更改Deny为Allow即可访问</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2031.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214111722663.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220214111722663">
+
 <p>我们可以看到Effect中设置为Deny，我们只需要vim将它更改为Allow即可</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2032.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214111722663-1.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220214111722663-1">
+
 <p>随后使用PUT方法上传</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2033.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214112030036.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220214112030036">
+
 <p>随后我们再使用GET获取</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2034.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214112059318.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220214112059318">
+
 <p>此时我们可以正常看到存储桶中的对象了</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2035.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214112115270.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220214112115270">
+
 <h3 id="9、修改策略导致网站瘫痪"><a href="#9、修改策略导致网站瘫痪" class="headerlink" title="9、修改策略导致网站瘫痪"></a><strong>9、修改策略导致网站瘫痪</strong></h3><p>当策略可写的时候，除了上面的将可原本不可访问的数据设置为可访问从而获得敏感数据外，如果目标网站引用了某个 s3 上的资源文件，而且我们可以对该策略进行读写的话，也可以将原本可访问的资源权限设置为不可访问，这样就会导致网站瘫痪了。</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2036.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214114352567.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220214114352567">
+
 <p>此时我们如果可以修改策略，我们只需要将获取该对象的权限修改为Deny，该网站既无法在获取图片，JS等信息了</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2037.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214114934078.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220214114934078">
+
 <p>就无法访问了</p>
-<p><img src="/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2%2039200dd0b38d450eae5913396692e173/Untitled%2038.png" srcset="/img/loading.gif" lazyload alt="Untitled"></p>
+<img src="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214114949942-1.png" srcset="/img/loading.gif" lazyload class="" title="UzJuMarkDownImageimage-20220214114949942-1">
 
                 
               </div>
@@ -458,8 +502,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>阿里云OSS攻防</div>
-      <div>http://example.com/2024/08/12/OSS云存储攻防/</div>
+      <div>Oss云存储攻防</div>
+      <div>http://example.com/2024/08/13/OSS云存储攻防/</div>
     </div>
     <div class="license-meta">
       
@@ -471,7 +515,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年8月12日</div>
+          <div>2024年8月13日</div>
         </div>
       
       
@@ -503,9 +547,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/08/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%A7%A3%E5%AF%86-%E5%8F%8D%E7%BC%96%E8%AF%91/" title="小程序解密+反编译">
+                      <a href="/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/" title="小程序反编译">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">小程序解密+反编译</span>
+                        <span class="hidden-mobile">小程序反编译</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

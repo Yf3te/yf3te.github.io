@@ -18,19 +18,24 @@
   
     <meta name="description" content="小程序解密+反编译 将访问的小程序进行解密和反向编译拿到部分源码，然后对源码进行安全审计，分析出其中可能存在的信息泄露或者说路径等一些关键信息。  前置环境准备1、nodejs环境安装（https:&#x2F;&#x2F;nodejs.org&#x2F;en，官网安装即可） 2、解密反编译工具(wxapkg：https:&#x2F;&#x2F;github.com&#x2F;wux1an&#x2F;wxapkg&#x2F;releases&#x2F;tag&#x2F;v1.5.0) 3、微信小程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="小程序解密+反编译">
-<meta property="og:url" content="http://example.com/2024/08/12/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%A7%A3%E5%AF%86-%E5%8F%8D%E7%BC%96%E8%AF%91/index.html">
+<meta property="og:title" content="小程序反编译">
+<meta property="og:url" content="http://example.com/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/index.html">
 <meta property="og:site_name" content="Yf3te">
 <meta property="og:description" content="小程序解密+反编译 将访问的小程序进行解密和反向编译拿到部分源码，然后对源码进行安全审计，分析出其中可能存在的信息泄露或者说路径等一些关键信息。  前置环境准备1、nodejs环境安装（https:&#x2F;&#x2F;nodejs.org&#x2F;en，官网安装即可） 2、解密反编译工具(wxapkg：https:&#x2F;&#x2F;github.com&#x2F;wux1an&#x2F;wxapkg&#x2F;releases&#x2F;tag&#x2F;v1.5.0) 3、微信小程">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-08-12T02:51:47.000Z">
-<meta property="article:modified_time" content="2024-08-12T02:52:52.396Z">
+<meta property="og:image" content="http://example.com/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/Untitled-1723536749584-9.png">
+<meta property="og:image" content="http://example.com/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/Untitled%201-1723536749584-11.png">
+<meta property="og:image" content="http://example.com/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/Untitled%202-1723536749584-10.png">
+<meta property="og:image" content="http://example.com/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/Untitled%203-1723536749584-12.png">
+<meta property="article:published_time" content="2024-08-13T08:08:57.000Z">
+<meta property="article:modified_time" content="2024-08-13T08:12:30.619Z">
 <meta property="article:author" content="Yf3te">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/Untitled-1723536749584-9.png">
   
   
   
-  <title>小程序解密+反编译 - Yf3te</title>
+  <title>小程序反编译 - Yf3te</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -225,7 +230,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="小程序解密+反编译"></span>
+            <span id="subtitle" data-typed-text="小程序反编译"></span>
           
         </div>
 
@@ -236,8 +241,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-08-12 10:51" pubdate>
-          2024年8月12日 上午
+        <time datetime="2024-08-13 16:08" pubdate>
+          2024年8月13日 下午
         </time>
       </span>
     
@@ -248,7 +253,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.2k 字
         
       </span>
     
@@ -259,7 +264,7 @@
         
         
         
-          11 分钟
+          10 分钟
         
       </span>
     
@@ -304,7 +309,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">小程序解密+反编译</h1>
+            <h1 id="seo-header">小程序反编译</h1>
             
             
               <div class="markdown-body">
@@ -322,20 +327,24 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql">只是把部分文件进行了合并<br>app<span class="hljs-operator">-</span>config.json<br>小程序工程主要包括工具配置 project.config.json，全局配置 app.json 以及页面配置 page.json 三类 JSON 配置文件。<br><br>app<span class="hljs-operator">-</span>service.js<br>在小程序项目中 JS 文件负责交互逻辑，主要包括 app.js，每个页面的 page.js，开发者自定义的 JS 文件和引入的第三方 JS 文件，在“编译”后所有这些 JS 文件都会被汇总到app<span class="hljs-operator">-</span>service.js 文件中<br><br>app<span class="hljs-operator">-</span>wxss.js<br>在小程序项目中 wxss 文件负责交互逻辑，主要包括 app.wxss，以及每个页面的wxss文件<br></code></pre></td></tr></table></figure>
 
 <h2 id="开始反编译"><a href="#开始反编译" class="headerlink" title="开始反编译"></a>开始反编译</h2><h3 id="1、定位微信小程序目录的位置"><a href="#1、定位微信小程序目录的位置" class="headerlink" title="1、定位微信小程序目录的位置"></a>1、定位微信小程序目录的位置</h3><p>登录微信——&gt;设置——&gt;文件管理</p>
-<p>![Untitled](E:\ASUS\Downloads\48a382c2-6f8f-4062-a6e2-357ad81e22dc_Export-39e7ef39-6ddb-463f-9458-3a29c08d96ed\小程序解密+反编译 4a6bf3be0d454869b3b421657d5b5b45\Untitled.png)</p>
+<img src="/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/Untitled-1723536749584-9.png" srcset="/img/loading.gif" lazyload class="" title="Untitled">
+
 <p>然后随机挑选一个小程序打开（尽量多点点其中的功能点）</p>
 <p>定位到该目录下的Applet，通过时间找到指定小程序的目录即可</p>
-<p>![Untitled](E:\ASUS\Downloads\48a382c2-6f8f-4062-a6e2-357ad81e22dc_Export-39e7ef39-6ddb-463f-9458-3a29c08d96ed\小程序解密+反编译 4a6bf3be0d454869b3b421657d5b5b45\Untitled 1.png)</p>
+<img src="/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/Untitled%201-1723536749584-11.png" srcset="/img/loading.gif" lazyload class="" title="Untitled">
+
 <h3 id="2、使用解密-反编译工具开始反编译"><a href="#2、使用解密-反编译工具开始反编译" class="headerlink" title="2、使用解密&amp;反编译工具开始反编译"></a>2、使用解密&amp;反编译工具开始反编译</h3><p>反编译的工具还有unveilr（<a target="_blank" rel="noopener" href="https://github.com/junxiaqiao/unveilr-v2.0.0%EF%BC%89%E3%80%81%E5%B0%8F%E9%94%A6%E5%93%A5%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%B7%A5%E5%85%B7%EF%BC%88[https://get-shell.com/3458.html](https://get-shell.com/3458.html)%EF%BC%89%EF%BC%8C%E4%B8%8D%E8%BF%87%E7%BB%8F%E8%BF%87%E5%8F%8D%E7%BC%96%E8%AF%91%E5%90%8E%E7%9A%84%E7%BB%93%E6%9E%9C%E5%AF%B9%E6%AF%94%E5%BE%97%E5%87%BA%EF%BC%9A%E8%99%BD%E7%84%B6wxapkg%E5%8F%8D%E7%BC%96%E8%AF%91%E7%9A%84%E5%86%85%E5%AE%B9%E6%AF%94%E4%B8%8A%E8%BF%B0%E4%B8%A4%E6%AC%BE%E6%9B%B4%E5%A4%9A%EF%BC%8C%E4%BD%86unveilr%E5%8F%8D%E7%BC%96%E8%AF%91%E6%9B%B4%E7%AC%A6%E5%90%88%E4%BC%A0%E7%BB%9F%E7%9A%84%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%EF%BC%8C%E6%9B%B4%E9%80%82%E5%90%88%E6%88%91%E4%BB%AC%E5%88%86%E6%9E%90%EF%BC%8C%E5%8F%AA%E8%83%BD%E8%AF%B4%E5%90%84%E6%9C%89%E4%BC%98%E5%8A%A3%E3%80%82">https://github.com/junxiaqiao/unveilr-v2.0.0）、小锦哥小程序工具（[https://get-shell.com/3458.html](https://get-shell.com/3458.html)），不过经过反编译后的结果对比得出：虽然wxapkg反编译的内容比上述两款更多，但unveilr反编译更符合传统的微信小程序的目录结构，更适合我们分析，只能说各有优劣。</a></p>
 <p>1、wxapkg</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">wxapkg.exe unpack <span class="hljs-operator">-</span>o unpack <span class="hljs-operator">-</span>r &quot;E:\ASUS\Documents\WeChat Files\Applet\wx1467dbe575243210&quot;<br></code></pre></td></tr></table></figure>
 
-<p>![Untitled](E:\ASUS\Downloads\48a382c2-6f8f-4062-a6e2-357ad81e22dc_Export-39e7ef39-6ddb-463f-9458-3a29c08d96ed\小程序解密+反编译 4a6bf3be0d454869b3b421657d5b5b45\Untitled 2.png)</p>
+<img src="/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/Untitled%202-1723536749584-10.png" srcset="/img/loading.gif" lazyload class="" title="Untitled">
+
 <p>但这并不是最初的原项目文件结构，原因是微信服务器会将小程序源码中所有的“js”文件压入“app-service.js”文件中，将所有的“json”文件压入“app-config.json”中，将所有的“wxml”文件压入“page-frame.js”文件中，“wxss”则在处理之后以“js”文件的形式存留在对应页面目录之下。</p>
 <p>2、unveilr</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">unveilr.exe wx &quot;D:\WeChat Files\Applet\wx7c8d593b2c3a7703\92\&quot; <span class="hljs-operator">-</span>o .\tyt <span class="hljs-operator">-</span>f<br></code></pre></td></tr></table></figure>
 
-<p>![Untitled](E:\ASUS\Downloads\48a382c2-6f8f-4062-a6e2-357ad81e22dc_Export-39e7ef39-6ddb-463f-9458-3a29c08d96ed\小程序解密+反编译 4a6bf3be0d454869b3b421657d5b5b45\Untitled 3.png)</p>
+<img src="/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/Untitled%203-1723536749584-12.png" srcset="/img/loading.gif" lazyload class="" title="Untitled">
+
 <h3 id="3、编译完成"><a href="#3、编译完成" class="headerlink" title="3、编译完成"></a>3、编译完成</h3><p>访问反编译成功的文件，开始提取敏感信息和代码审计即可</p>
 <h2 id="常见漏洞"><a href="#常见漏洞" class="headerlink" title="常见漏洞"></a>常见漏洞</h2><p>弱口令、AS、AK、敏感信息、接口泄露</p>
 
@@ -355,8 +364,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>小程序解密+反编译</div>
-      <div>http://example.com/2024/08/12/小程序解密-反编译/</div>
+      <div>小程序反编译</div>
+      <div>http://example.com/2024/08/13/小程序反编译/</div>
     </div>
     <div class="license-meta">
       
@@ -368,7 +377,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年8月12日</div>
+          <div>2024年8月13日</div>
         </div>
       
       
@@ -404,8 +413,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/" title="阿里云OSS攻防">
-                        <span class="hidden-mobile">阿里云OSS攻防</span>
+                      <a href="/2024/08/13/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/" title="Oss云存储攻防">
+                        <span class="hidden-mobile">Oss云存储攻防</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
