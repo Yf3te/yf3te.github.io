@@ -23,54 +23,12 @@
 <meta property="og:site_name" content="Yf3te">
 <meta property="og:description" content="阿里云OSS对象攻防简介 阿里云对象储存（OSS），是阿里云对外提供的海量、安全、低成本、高可靠的云存储服务。数据以对象（Object）的形式存储在OSS的存储空间&#x2F;存储桶（Bucket ）中，并指定Object的文件名（Key）作为其唯一标识。您可以通过本文档提供的简单的REST接口，在任何时间、任何地点、任何互联网设备上进行上传和下载数据。基于OSS，您可以搭建出各种多媒体分享网站、">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813171658798.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813171703411.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140122031-1723540766933-2.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140220450-1723540766933-1.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140233142-1723540766934-5.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140242336-1723540766934-3.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140253776-1723540766934-4.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140306422-1723540766934-6.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140316872-1723540766934-7.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140326524-1723540766934-8.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140336639-1723540766934-9.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140349126-1723540766934-12.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140357920-1723540766934-10.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140419195-1723540766934-11.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140432212-1723540766934-13.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212133217024-1723540766934-14.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140549402-1723540766934-15.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140601717-1723540766934-16.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140615054-1723540766934-17.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140648104-1723540766934-18.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813140659657-1723540766934-21.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212134350154-1723540766934-22.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageUzJuMarkDownImagedownload_image-1723540766934-20.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212134841569-1723540766934-19.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212135014007-1723540766934-23.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212135053519-1723540766934-25.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212135121070-1723540766934-26.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212135244909-1723540766934-27.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212135316238-1723540766934-24.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212135948743-1723540766934-28.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212140112615-1723540766934-29.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212140129779-1723540766934-30.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212140150975-1723540766934-31.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220212140256729-1723540766934-32.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214111642789-1723540766934-33.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214111722663-1723540766934-36.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214111722663-1-1723540766934-34.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214112030036-1723540766934-35.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214112059318-1723540766934-37.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214112115270-1723540766934-39.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214114352567-1723540766934-38.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/UzJuMarkDownImageimage-20220214114934078-1723540766934-40.png">
-<meta property="og:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813171951610.png">
+<meta property="og:image" content="http://example.com/9.jpg">
 <meta property="article:published_time" content="2024-08-12T09:13:48.000Z">
-<meta property="article:modified_time" content="2024-08-13T09:19:52.651Z">
+<meta property="article:modified_time" content="2024-08-14T08:11:49.438Z">
 <meta property="article:author" content="Yf3te">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/image-20240813171658798.png">
+<meta name="twitter:image" content="http://example.com/9.jpg">
   
   
   
@@ -263,7 +221,7 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/5.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
