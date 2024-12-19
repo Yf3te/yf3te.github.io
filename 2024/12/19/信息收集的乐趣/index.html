@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/8.jpg">
 <meta property="article:published_time" content="2024-12-19T13:09:09.000Z">
-<meta property="article:modified_time" content="2024-12-19T13:51:19.601Z">
+<meta property="article:modified_time" content="2024-12-19T14:06:13.107Z">
 <meta property="article:author" content="Yf3te">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/8.jpg">
@@ -505,26 +505,26 @@
 <p>6、源码查找</p>
 <p>可以直接指纹识别CMS、寻找网站框架，根据网站的一些图标、logo、关键字，还有一些特殊的目录，甚至是f12源代码中的作者泄露去寻找源码。</p>
 <p>源码可以在github、fofa、搜索引擎、专属源码站点上去寻找</p>
-<h3 id="Edusrc信息收集"><a href="#Edusrc信息收集" class="headerlink" title="Edusrc信息收集"></a>Edusrc信息收集</h3><p>信息收集重心：学号、身份证、工号、电话号</p>
+<h2 id="Edusrc信息收集"><a href="#Edusrc信息收集" class="headerlink" title="Edusrc信息收集"></a>Edusrc信息收集</h2><p>信息收集重心：学号、身份证、工号、电话号</p>
 <figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs elm"><span class="hljs-comment">-----------------------------google语法-----------------------------</span><br><span class="hljs-title">site</span>:xx.edu.cn file<span class="hljs-keyword">type</span>:pdf 身份证 学号 工号 初始密码<br><span class="hljs-title">site</span>:xx.edu.cn file<span class="hljs-keyword">type</span>:docx 身份证 学号 工号<br><span class="hljs-title">site</span>:xx.edu.cn file<span class="hljs-keyword">type</span>:xlsx 身份证 学号 工号<br><br>再者就是学校官网的文件的信息泄露：帮助说明、默认密码、贫困生补助、奖学金补助等<br><span class="hljs-comment">-----------------------------fofa语法-----------------------------</span><br>通用挖掘：(<span class="hljs-string">&quot;注册&quot;</span> || <span class="hljs-string">&quot;系统&quot;</span> || <span class="hljs-string">&quot;登录&quot;</span> || <span class="hljs-string">&quot;后台&quot;</span> || <span class="hljs-string">&quot;管理&quot;</span>) &amp;&amp; org=<span class="hljs-string">&quot;China Education and Research Network Center&quot;</span><br><br>单个学校收集，当然主域名不止这一个<br><span class="hljs-title">domain</span>=<span class="hljs-string">&quot;xxx.edu.cn&quot;</span> || cert=<span class="hljs-string">&quot;xxx.edu.cn&quot;</span> || cert=<span class="hljs-string">&quot;xx大学&quot;</span>  ....<br><br><span class="hljs-comment">-----------------------------偏门一点的检索方式-----------------------------</span><br><span class="hljs-number">1</span>、可以去当地的教育局查看是否有敏感信息。<br>	直接使用搜索引擎，哪个省份哪个市，就找那个省份那个市的教育厅，去找可能的奖学金文件。<br><span class="hljs-number">2</span>、直接去社交平台找泄露<br>	抖音、小红书、微博、贴吧、快手、qq频道<br><span class="hljs-number">3</span>、社工哥<br>	<span class="hljs-number">3.1</span>、直接加qq群，你知道的呀！<br>	<span class="hljs-number">3.2</span>、可以去找一些学校可能存在什么失物招领的平台，直接打call，你知道的呀！<br><br></code></pre></td></tr></table></figure>
 
 <p>还有就是一些学校肯定不止一个域名，他还会存在其他分支，虽然上面的fofa语法也可以检索一些出来，但并不完全</p>
 <p>以浙江大学为例，我们可以在企查查上去看</p>
 <p><img src="https://s2.loli.net/2024/12/14/I5C6ukZjo2PbULe.png" srcset="/img/loading.gif" lazyload alt="image-20241214123147943"></p>
 <p>这些资产都隶属浙江大学，都是可以收集的，这里可以参考之前子公司收集的思路结局。拿到了主域名，再参考子域名收集。</p>
-<h3 id="供应链信息收集"><a href="#供应链信息收集" class="headerlink" title="供应链信息收集"></a>供应链信息收集</h3><p>实在无法破局，采用供应链（多在edu、企业也有）</p>
+<h2 id="供应链信息收集"><a href="#供应链信息收集" class="headerlink" title="供应链信息收集"></a>供应链信息收集</h2><p>实在无法破局，采用供应链（多在edu、企业也有）</p>
 <p>基本阐述</p>
 <figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">1、确定供应商<br>关键系统的版权信息，最底部<br><br>2、无版权信息，信息收集得到单位喜欢使用的供应商产品<br>3、目标的<span class="hljs-strong">**招标**</span>公开网（学校）<br>再找关键应用的供应商<br><br>4、爱企查、天眼查找招标信息<br>5、用全国采购与招标网<br>6、借用系统的https证书确定开发单位<br>还有一种，有部分系统在访问前，会需要你先安装什么程序或者插件，从中也可以提取出相关的证书，从而确认其生产单位<br><br>7（重点）、去测试相同产品的站点，如果渗透成功，就以这个站点类比目标站点，去寻找可能存在的相同路由，相同漏洞点。也有可能两个站点之间存在某种隐藏的联系和关联处。甚至可以直接切换请求头host，把包直接替换<br></code></pre></td></tr></table></figure>
 
 <p>结语：在复杂环境下，效率偏低</p>
-<h3 id="小程序-公众号"><a href="#小程序-公众号" class="headerlink" title="小程序&amp;公众号"></a>小程序&amp;公众号</h3><p>针对一些web打不动的资产，说不定其小程序公众号会有洞可以寻，所以小程序公众号的信息收集必不可少</p>
-<h4 id="小程序-公众号定位"><a href="#小程序-公众号定位" class="headerlink" title="小程序&amp;公众号定位"></a>小程序&amp;公众号定位</h4><p>1、微信搜索</p>
+<h2 id="小程序-公众号"><a href="#小程序-公众号" class="headerlink" title="小程序&amp;公众号"></a>小程序&amp;公众号</h2><p>针对一些web打不动的资产，说不定其小程序公众号会有洞可以寻，所以小程序公众号的信息收集必不可少</p>
+<h3 id="小程序-公众号定位"><a href="#小程序-公众号定位" class="headerlink" title="小程序&amp;公众号定位"></a>小程序&amp;公众号定位</h3><p>1、微信搜索</p>
 <p>根据资产名称在微信中搜索，以”华为”为例，其公司全称为”华为技术有限公司”。</p>
 <p>企查查</p>
 <p><img src="https://s2.loli.net/2024/12/16/ZcMjTrHGpz4tsCa.png" srcset="/img/loading.gif" lazyload alt="image-20241216002127072"></p>
 <p>小蓝本</p>
 <p><img src="https://s2.loli.net/2024/12/16/aG9n51iRgPpsYUk.png" srcset="/img/loading.gif" lazyload alt="image-20241216002134714"></p>
-<h4 id="公众号-小程序如何信息收集"><a href="#公众号-小程序如何信息收集" class="headerlink" title="公众号&amp;小程序如何信息收集"></a>公众号&amp;小程序如何信息收集</h4><p>主要在<strong>模拟器、手机端</strong>上实现，不知道为什么，一些信息不能直接在pc端微信上获取，下述是在模拟器的收集过程</p>
+<h3 id="公众号-小程序如何信息收集"><a href="#公众号-小程序如何信息收集" class="headerlink" title="公众号&amp;小程序如何信息收集"></a>公众号&amp;小程序如何信息收集</h3><p>主要在<strong>模拟器、手机端</strong>上实现，不知道为什么，一些信息不能直接在pc端微信上获取，下述是在模拟器的收集过程</p>
 <p>1、小程序</p>
 <p><img src="https://s2.loli.net/2024/12/16/sLvzJnOtVmYxRUh.png" srcset="/img/loading.gif" lazyload alt="image-20241216002152475"></p>
 <p><img src="https://s2.loli.net/2024/12/19/TJF4ajKSnsNGovl.png" srcset="/img/loading.gif" lazyload alt="image-20241216002203367"></p>
@@ -546,7 +546,7 @@
 <p>抓包测试方面也一起说了，不知道为什么我在模拟器（夜神）搜公众号，总是没有结果，所以我直接在pc端进行抓包测试了，虽然在pc端无法信息收集，但是抓包测试绝对是一把好手！并且我做了对比，pc端和手机端的公众号、小程序的数目没有差别（反正我没有看到差别）。</p>
 <p>抓包主要使用：burp+proxifier+pc端微信即可</p>
 <p>参考：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_x8c88RQ8zoeEqRVnvBPtg">https://mp.weixin.qq.com/s/_x8c88RQ8zoeEqRVnvBPtg</a></p>
-<h4 id="小程序逆向"><a href="#小程序逆向" class="headerlink" title="小程序逆向"></a>小程序逆向</h4><p>获取接口+资产信息</p>
+<h3 id="小程序逆向"><a href="#小程序逆向" class="headerlink" title="小程序逆向"></a>小程序逆向</h3><p>获取接口+资产信息</p>
 <p>工具：</p>
 <p>1、<a target="_blank" rel="noopener" href="https://github.com/Siffre/wxappUnpacker">https://github.com/Siffre/wxappUnpacker</a></p>
 <p><strong>可以关注其中有没有硬编码的密码、企业微信key、公众号key、AK&#x2F;SK等等，此外app.json里一般都写好了小程序要调用的接口路径，按照常规思路利用攻击即可！</strong></p>
@@ -558,14 +558,14 @@
 <p>Wxapp</p>
 <p><img src="https://s2.loli.net/2024/12/16/3yLRSZePbtsTfgM.png" srcset="/img/loading.gif" lazyload alt="image-20241216002450452"></p>
 <p><img src="https://s2.loli.net/2024/12/16/KVvXjcpJ2kDBtfb.png" srcset="/img/loading.gif" lazyload alt="image-20241216002458002"></p>
-<h4 id="F12调试小程序"><a href="#F12调试小程序" class="headerlink" title="F12调试小程序"></a>F12调试小程序</h4><p>开<strong>小号</strong>调试，可能会被封！</p>
+<h3 id="F12调试小程序"><a href="#F12调试小程序" class="headerlink" title="F12调试小程序"></a>F12调试小程序</h3><p>开<strong>小号</strong>调试，可能会被封！</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/JaveleyQAQ/WeChatOpenDevTools-Python">https://github.com/JaveleyQAQ/WeChatOpenDevTools-Python</a></p>
 <p><img src="https://s2.loli.net/2024/12/16/2Vzp1W6CYx4kvKO.png" srcset="/img/loading.gif" lazyload alt="image-20241216002504398"></p>
 <p>这个工具的用法也是很简单，我们进去微信之后（最好用小号避免封号），直接运行python main.py -x</p>
 <p>然后进入小程序</p>
 <p><img src="https://s2.loli.net/2024/12/16/B2doSLeJ6yq5Fvu.png" srcset="/img/loading.gif" lazyload alt="image-20241216002510866"></p>
 <p> 即可调试</p>
-<h3 id="apk信息收集"><a href="#apk信息收集" class="headerlink" title="apk信息收集"></a>apk信息收集</h3><p>1、利用工具APPinfoScanner</p>
+<h2 id="apk信息收集"><a href="#apk信息收集" class="headerlink" title="apk信息收集"></a>apk信息收集</h2><p>1、利用工具APPinfoScanner</p>
 <p>通常场景下我们扫的只有目标APK文件，这里直接用第一条命令</p>
 <p>python app.py android -i 123.apk</p>
 <p>结果如下</p>
@@ -573,7 +573,7 @@
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stylus">扫描ios的ipa文件、machine-o文件<br>python app<span class="hljs-selector-class">.py</span> ios -<span class="hljs-selector-tag">i</span> xxx<span class="hljs-selector-class">.ipa</span><br><br>扫描web站点的文件、目录、需要缓存的站点URL<br>python app<span class="hljs-selector-class">.py</span> web -<span class="hljs-selector-tag">i</span> www<span class="hljs-selector-class">.xxx</span>.com<br></code></pre></td></tr></table></figure>
 
 <p>app测试得比较少，不太会信息收集，只能当脚本小子了，惭愧惭愧！</p>
-<h3 id="国外站点信息收集"><a href="#国外站点信息收集" class="headerlink" title="国外站点信息收集"></a>国外站点信息收集</h3><p>国内用到企查查、天眼查、小蓝本这些，去构建“股权树”，梳理公司</p>
+<h2 id="国外站点信息收集"><a href="#国外站点信息收集" class="headerlink" title="国外站点信息收集"></a>国外站点信息收集</h2><p>国内用到企查查、天眼查、小蓝本这些，去构建“股权树”，梳理公司</p>
 <p>国外就可以用到以下网站</p>
 <p><a target="_blank" rel="noopener" href="https://www.crunchbase.com/">https://www.crunchbase.com</a></p>
 <p>以google为例，下面的ORG为相关组织，就是公司，People就是法定代表人</p>
@@ -581,9 +581,9 @@
 <p>随便点一个组织点进去，下面就是资产入口</p>
 <p><img src="https://s2.loli.net/2024/12/19/DohsuVIUk2QN1KP.png" srcset="/img/loading.gif" lazyload alt="image-20241216013250281.png"></p>
 <p>使用fofa结合crt证书收集，也很不多，这个主要是用来收集主域名，其他子域名，可以采上述的子域名收集，不过使用工具时，最好搭个代理，这样收集得更多。</p>
-<h3 id="偏僻子域名"><a href="#偏僻子域名" class="headerlink" title="偏僻子域名"></a>偏僻子域名</h3><p><a target="_blank" rel="noopener" href="https://otx.alienvault.com/api/v1/indicators/domain/baidu.com/url_list?limit=100&page=1">https://otx.alienvault.com/api/v1/indicators/domain/baidu.com/url_list?limit=100&amp;page=1</a></p>
+<h2 id="偏僻子域名"><a href="#偏僻子域名" class="headerlink" title="偏僻子域名"></a>偏僻子域名</h2><p><a target="_blank" rel="noopener" href="https://otx.alienvault.com/api/v1/indicators/domain/baidu.com/url_list?limit=100&page=1">https://otx.alienvault.com/api/v1/indicators/domain/baidu.com/url_list?limit=100&amp;page=1</a></p>
 <p>试试就知道了，想查什么域名，就替换baidu.com这一项就行，最后面的</p>
-<h3 id="政府信息收集"><a href="#政府信息收集" class="headerlink" title="政府信息收集"></a>政府信息收集</h3><p>说到政府机构的信息收集，感觉跟企业的话，主要是在获取主域名的时候有点区别，主域名不能再依靠企查查、天眼查了。</p>
+<h2 id="政府信息收集"><a href="#政府信息收集" class="headerlink" title="政府信息收集"></a>政府信息收集</h2><p>说到政府机构的信息收集，感觉跟企业的话，主要是在获取主域名的时候有点区别，主域名不能再依靠企查查、天眼查了。</p>
 <p>提供以下两种方式去收集</p>
 <p>1、搜索引擎</p>
 <p>以重庆教育委员会为例，我们直接用百度词条，搜“重庆市教育委员会”或者“重庆市教育委员会 百度百科”</p>
@@ -598,7 +598,7 @@
 <p><img src="https://s2.loli.net/2024/12/16/y4LRQ6wtPojz2ZO.png" srcset="/img/loading.gif" lazyload alt="image-20241216155215421"></p>
 <p>就差不多了。</p>
 <p>此外一个小tips，厅级单位打不下来，可以尝试打局级单位，尤其是省会的局级单位，内网有很大可能是通的，可以从下往上打。</p>
-<h3 id="自动化信息收集"><a href="#自动化信息收集" class="headerlink" title="自动化信息收集"></a>自动化信息收集</h3><p>先上个开胃菜，谈到自动化信息收集，肯定离不开ARL灯塔，这玩意是真好用，基础指纹识别、基础数据包请求响应、站点截图、泄露扫描、Host碰撞、WIH调用（在JS中收集域名,AK&#x2F;SK等信息）。不过还是需要自己通过收集主域名。</p>
+<h2 id="自动化信息收集"><a href="#自动化信息收集" class="headerlink" title="自动化信息收集"></a>自动化信息收集</h2><p>先上个开胃菜，谈到自动化信息收集，肯定离不开ARL灯塔，这玩意是真好用，基础指纹识别、基础数据包请求响应、站点截图、泄露扫描、Host碰撞、WIH调用（在JS中收集域名,AK&#x2F;SK等信息）。不过还是需要自己通过收集主域名。</p>
 <p>这些都还不错，还可以扩展一点。我这是用docker安装的ARL，有时候朋友们在安装的时候，可能就会因为docker的一些报错整破防了，这里推荐很不错的脚本，里面配备着很多脚本的安装，简直一绝</p>
 <p><img src="https://s2.loli.net/2024/12/16/kwohqu4mv2Kfa7n.png" srcset="/img/loading.gif" lazyload alt="image-20241216231744111"></p>
 <p>项目地址：<a target="_blank" rel="noopener" href="https://gitee.com/yijingsec/LinuxEnvConfig">https://gitee.com/yijingsec/LinuxEnvConfig</a></p>
