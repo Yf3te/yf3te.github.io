@@ -1,0 +1,777 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.png">
+  <link rel="icon" href="/img/2.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Yf3te">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Host碰撞反向代理顺口提一嘴…正向代理：代理服务器代理客户端，例如我们搭建代理科学上网 反向代理：代理服务器代理服务端，测试网站时我们常常使用浏览器插件&lt;–Wappalyzer–&gt;，有时候就会看到Nginx反向代理。反向代理就是有一台代理服务器代理网站站点，例如网站真实站点的ip为101.131.20.162，其代理服务器IP就是121.161.241.36，我们访问时只能访问到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Host碰撞实战篇">
+<meta property="og:url" content="http://example.com/2024/12/12/Host%E7%A2%B0%E6%92%9E%E5%AE%9E%E6%88%98%E7%AF%87/index.html">
+<meta property="og:site_name" content="Yf3te">
+<meta property="og:description" content="Host碰撞反向代理顺口提一嘴…正向代理：代理服务器代理客户端，例如我们搭建代理科学上网 反向代理：代理服务器代理服务端，测试网站时我们常常使用浏览器插件&lt;–Wappalyzer–&gt;，有时候就会看到Nginx反向代理。反向代理就是有一台代理服务器代理网站站点，例如网站真实站点的ip为101.131.20.162，其代理服务器IP就是121.161.241.36，我们访问时只能访问到">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/9.jpg">
+<meta property="article:published_time" content="2024-12-12T03:18:39.000Z">
+<meta property="article:modified_time" content="2025-01-18T18:58:20.220Z">
+<meta property="article:author" content="Yf3te">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/9.jpg">
+  
+  
+  
+  <title>Host碰撞实战篇 - Yf3te</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"nPsiBpqAh9nfJ5Dy1WuaF7QX-MdYXbMMI","app_key":"uHgPDZvMgamWIL1SjZs4NpY4","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Yf3_te</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/5.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Host碰撞实战篇"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-12-12 11:18" pubdate>
+          2024年12月12日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span>次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Host碰撞实战篇</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <meta name="referrer" content="no-referrer"/>
+
+<h1 id="Host碰撞"><a href="#Host碰撞" class="headerlink" title="Host碰撞"></a>Host碰撞</h1><h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><p>顺口提一嘴…正向代理：代理服务器代理客户端，例如我们搭建代理科学上网</p>
+<p>反向代理：代理服务器代理服务端，测试网站时我们常常使用浏览器插件&lt;–Wappalyzer–&gt;，有时候就会看到Nginx反向代理。反向代理就是有一台代理服务器代理网站站点，例如网站真实站点的ip为101.131.20.162，其代理服务器IP就是121.161.241.36，我们访问时只能访问到121.161.241.36，而不能知道其真实ip。这里也是反向代理的一个目的之一，隐藏真实。</p>
+<p>反向代理如何实现？</p>
+<p>准备：</p>
+<p>1、一台有nginx的服务器</p>
+<p>2、一个域名，该域名DNS解析到我们的nginx服务器代理</p>
+<p>此处我们就不使用https了，只是做个小实验</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-string">//</span>安装并启动nginx<br>sudo apt install nginx<br>sudo systemctl start nginx<br>sudo systemctl enable nginx<br><br><br><span class="hljs-string">//</span>配置企业常用的反向代理配置：只能用域名访问代理服务器才能访问到内容，否则返回其他页面：包括404<br>sudo vim <span class="hljs-string">/etc/nginx/sites-available/default</span><br><br>修改上述文件内容为下述 <br>server &#123;<br>    listen 80;  <span class="hljs-comment"># 监听 HTTP 请求，也就是通过访问80端口即可访问到后端服务器</span><br>    server_name xxx.com; <span class="hljs-comment"># 替换为你的域名</span><br><br>	<span class="hljs-keyword">if</span> <span class="hljs-params">($host != &#x27;xxx.xxx.com&#x27;)</span> &#123;<br>        return 404;  <span class="hljs-comment"># 如果不是预期域名，返回 404</span><br>    &#125;<br>    <span class="hljs-comment"># 反向代理到后端服务</span><br>    location / &#123;<br>        proxy_pass https:<span class="hljs-string">//xxx.xxx.xxx.5</span><span class="hljs-function">:5003</span>/login;  <span class="hljs-comment"># 替换为你的后端服务地址和端口</span><br>        proxy_<span class="hljs-keyword">set</span>_header Host $host;<br>        proxy_<span class="hljs-keyword">set</span>_header X-Real-IP $remote_addr;<br>        proxy_<span class="hljs-keyword">set</span>_header X-Forwarded-For $proxy_add_x_forwarded_for;<br>        proxy_http_<span class="hljs-keyword">version</span> 1.1;<br>        proxy_<span class="hljs-keyword">set</span>_header Connection <span class="hljs-string">&quot;upgrade&quot;</span>;<br>    &#125;<br>    <span class="hljs-comment"># 默认的 404 页面</span><br>    error_page 404 <span class="hljs-string">/404.html</span>;<br>    location = <span class="hljs-string">/404.html</span> &#123;<br>        root <span class="hljs-string">/var/www/html</span>;  <span class="hljs-comment"># 替换为你的静态文件目录</span><br>    &#125;<br><br>    <span class="hljs-comment"># 默认的 50x 页面</span><br>    error_page 500 502 503 504 <span class="hljs-string">/50x.html</span>;<br>    location = <span class="hljs-string">/50x.html</span> &#123;<br>        root <span class="hljs-string">/var/www/html</span>;  <span class="hljs-comment"># 替换为你的静态文件目录</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后访问域名<a target="_blank" rel="noopener" href="http://www.xxx.com就会成功代理上后端服务器https//xxx.xxx.xxx.5:5003/login">www.xxx.com就会成功代理上后端服务器https://xxx.xxx.xxx.5:5003/login</a></p>
+<p>下图为“后端服务器”</p>
+<p><img src="https://s2.loli.net/2024/12/13/jQrm9loefEc3Dgp.png" srcset="/img/loading.gif" lazyload alt="image-20241211185427732"></p>
+<p>下图为反向代理服务器的效果，大概由于ssl证书、以及我的域名未备案的原因导致了无法完整显示页面，这里不重要，只是展示一个效果而已，有个标题证明代理成功即可。</p>
+<p><img src="https://s2.loli.net/2024/12/13/1h7JzSXtoPFBbem.png" srcset="/img/loading.gif" lazyload alt="image-20241211185518471"></p>
+<p>直接用ip访问80端口就不行，就会返回404，因为上面的配置。</p>
+<p><img src="https://s2.loli.net/2024/12/13/C48HYMgSNVOih5t.png" srcset="/img/loading.gif" lazyload alt="image-20241211192718670"></p>
+<p>直接通过IP访问不行，也就是我们有时候在渗透时，会存在一些IP形式的url，访问会发现返回502、403、404、nginx默认页面、centos默认页面等，这种多半就是代理服务器，它有可能规定了只能使用域名访问，不能直接通过ip访问，这种我们就必须要把这种奇怪的ip保存下来，下面会有用。</p>
+<p>还有一种情况就是我们访问一个由域名组成的url，结果啥也没有。但是这个url不能来着这么无缘无故，其实导致这个的原因就是域名被“废弃”，未解析到任何IP，其中就又存在一种可能，就是使用者一开始把这个域名解析到了代理服务器，不过之后又可能某种原因，废除了这域名。<strong>既然之前解析到过代理服务器并且代理服务器使用过，代理服务器的代理配置就极有可能没有被删除。</strong>在上面的基础上，我们就做个实验，模拟上述情况，展示其利用方式。</p>
+<p>1、删除域名DNS解析代理服务器</p>
+<p><img src="https://s2.loli.net/2024/12/13/ewOYR6VtL257rkN.png" srcset="/img/loading.gif" lazyload alt="image-20241211193843338"></p>
+<p>2、静候其失效，就相当于废除了该域名。好了！成功返回502，说明该域名没有解析到任何一个IP</p>
+<p><img src="https://s2.loli.net/2024/12/13/74RLZBACMIlkEDS.png" srcset="/img/loading.gif" lazyload alt="image-20241211194304434"></p>
+<p>我们重新访问代理服务器的80端口，并抓包，把请求头host修改为之前代理服务器配置的域名，发包</p>
+<p><img src="https://s2.loli.net/2024/12/13/iv371hLFgKZ2WwH.png" srcset="/img/loading.gif" lazyload alt="image-20241211195002569"></p>
+<p>行咯！发现单独使用ip或者域名访问啥也没有，结果两者适当结合一下，却能访问一些不能直接访问的页面。</p>
+<p><img src="https://s2.loli.net/2024/12/13/lsnKXgtM8W5zfH7.png" srcset="/img/loading.gif" lazyload alt="image-20241211194958225"></p>
+<p>导致这个的原因就是上述提到的<strong>“代理服务器上的配置未删除”</strong></p>
+<p>也就是host碰撞这一技术诞生的根本原因。</p>
+<h2 id="何为host碰撞？"><a href="#何为host碰撞？" class="headerlink" title="何为host碰撞？"></a>何为host碰撞？</h2><p>host碰撞就是通过IP（用作请求url）和域名（用作请求头中的Host）两者的搭配发包，访问到代理服务器，从而访问到可能被隐藏的后端服务器资产的一个信息收集技术。</p>
+<h2 id="host碰撞的作用？"><a href="#host碰撞的作用？" class="headerlink" title="host碰撞的作用？"></a>host碰撞的作用？</h2><p>在信息收集收集资产时，发现可能被废弃的代理服务器，从而发现隐藏的后端服务器。所以该操作可以直接在收集c段、ip、域名之后直接做。</p>
+<h2 id="如何实现host碰撞？"><a href="#如何实现host碰撞？" class="headerlink" title="如何实现host碰撞？"></a>如何实现host碰撞？</h2><p>在我们资产收集后，肯定就会存在有些资产不能直接访问的情况，很有可能就是上述实验中的情况，需要host碰撞。而且这样的资产在一些大型的攻防演练、src中<strong>绝对不会少</strong>。所以我们在拿到比较全的  域名资产、ip资产的时候就可以测测活，记录下回显不是200的资产，并分装到<strong>ip.txt、domain.txt</strong>文件中，先解决一部分回显不正常的，然后在指纹识别的时候，可以看到一些标题如：<strong>Centos欢迎页面、nginx页面、其他欢迎页面这种没有实质内容的标题</strong>，我们也可以进一步把他们添加在之前收集的ip.txt、domain.txt文件中。然后直接上工具。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/pmiaowu/HostCollision">HostCollision-2.2.9</a></p>
+<p>工具功能查看：</p>
+<p><img src="https://s2.loli.net/2024/12/13/xvPNHQJ23KC9edD.png" srcset="/img/loading.gif" lazyload alt="image-20241211201711155"></p>
+<p>把上述得到的ip.txt、domain.txt扔在该工具目录下</p>
+<p>运行以下命令：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">java </span>-<span class="hljs-keyword">jar </span>HostCollision.<span class="hljs-keyword">jar </span>-ifp ip.txt -hfp domain.txt<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2024/12/13/niIKhcSm8RrdjTu.png" srcset="/img/loading.gif" lazyload alt="image-20241211201938705"></p>
+<p>然后得到碰撞成功的列表，我们正常测试站点时肯定不能一直手动切换host，于是下面就推荐两个方法</p>
+<p>1、burp（match and replace rules）</p>
+<p>方便我们直接抓包测试。</p>
+<p>2、浏览器插件：<a target="_blank" rel="noopener" href="https://chromewebstore.google.com/detail/modheader-modify-http-hea/idgpnmonknjnojddfkpgkljpfnnfcklj?hl=en">ModHeader</a></p>
+<p>这个我更为推荐，因为有时候不知道怎么回事，burp的那个匹配替换功能会失效，但是用了插件就可以很好的解决这个问题，它可以自动锁定我们自定义的请求头。</p>
+<p>点击Mod，并选择request header</p>
+<p><img src="https://s2.loli.net/2024/12/13/HkSsqrJALFl3Icg.png" srcset="/img/loading.gif" lazyload alt="image-20241211203935062"></p>
+<p><img src="https://s2.loli.net/2024/12/13/o7PdSvN3RrpXQBO.png" srcset="/img/loading.gif" lazyload alt="image-20241211204636765"></p>
+<p><img src="https://s2.loli.net/2024/12/13/YQB46WvZ1loTDRK.png" srcset="/img/loading.gif" lazyload alt="image-20241211204654058"></p>
+<p>然后填写我们的host及其值即可，就可以不管了，直接刷新网页就行了。</p>
+<p><img src="https://s2.loli.net/2024/12/13/afOYocCAWItnKwy.png" srcset="/img/loading.gif" lazyload alt="image-20241211204756784"></p>
+<p>但是这个设置会影响其他网页的正常访问，所以设置只在我们当前测试站点使用，右键扩展图标，然后如下图勾选即可。</p>
+<p><img src="https://s2.loli.net/2024/12/13/2TaGNoyQzqPOZdR.png" srcset="/img/loading.gif" lazyload alt="image-20241211204942971"></p>
+<p>即可正常测试了。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Host碰撞实战篇</div>
+      <div>http://example.com/2024/12/12/Host碰撞实战篇/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Yf3te</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年12月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/12/13/typora-hexo%E5%8D%9A%E5%AE%A2%E5%9B%BE%E7%89%87%E8%B8%A9%E5%9D%91%E9%80%9F%E8%AE%B0/" title="typora+hexo博客图片踩坑速记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">typora+hexo博客图片踩坑速记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/08/14/springblade%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/" title="springblade漏洞总结">
+                        <span class="hidden-mobile">springblade漏洞总结</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"nPsiBpqAh9nfJ5Dy1WuaF7QX-MdYXbMMI","appKey":"uHgPDZvMgamWIL1SjZs4NpY4","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量
+        <span id="leancloud-site-pv"></span>
+        次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数
+        <span id="leancloud-site-uv"></span>
+        人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/Cherry.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script><!-- hexo injector body_end end --></body>
+</html>

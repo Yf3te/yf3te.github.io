@@ -1,0 +1,789 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.png">
+  <link rel="icon" href="/img/2.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Yf3te">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="python图形化（1）作为一个向往图形化工具的网安人，频繁使用一些cmd脚本，多cmd窗口，总是让我心烦意乱。于是心生一计，为什么不能自己做一个综合型的图形化工具页面呢，那最便捷的脚本语言python语言肯定首当其冲。于是有了这一篇开发小日记的诞生。鄙人不会开发，只是小懂门道，大佬轻点喷。 下面就看一看基本实现的思路。 1234561、构建基本UI界面2、UI转为py文件3、相关事件绑定函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开发日记——python(1)">
+<meta property="og:url" content="http://example.com/2024/12/21/%E5%BC%80%E5%8F%91%E6%97%A5%E8%AE%B0%E2%80%94%E2%80%94python-1/index.html">
+<meta property="og:site_name" content="Yf3te">
+<meta property="og:description" content="python图形化（1）作为一个向往图形化工具的网安人，频繁使用一些cmd脚本，多cmd窗口，总是让我心烦意乱。于是心生一计，为什么不能自己做一个综合型的图形化工具页面呢，那最便捷的脚本语言python语言肯定首当其冲。于是有了这一篇开发小日记的诞生。鄙人不会开发，只是小懂门道，大佬轻点喷。 下面就看一看基本实现的思路。 1234561、构建基本UI界面2、UI转为py文件3、相关事件绑定函数">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/9.jpg">
+<meta property="article:published_time" content="2024-12-21T06:36:24.000Z">
+<meta property="article:modified_time" content="2025-01-06T05:21:32.509Z">
+<meta property="article:author" content="Yf3te">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/9.jpg">
+  
+  
+  
+  <title>开发日记——python(1) - Yf3te</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"nPsiBpqAh9nfJ5Dy1WuaF7QX-MdYXbMMI","app_key":"uHgPDZvMgamWIL1SjZs4NpY4","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Yf3_te</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/6.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="开发日记——python(1)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-12-21 14:36" pubdate>
+          2024年12月21日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span>次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">开发日记——python(1)</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <meta name="referrer" content="no-referrer"/>
+
+<h1 id="python图形化（1）"><a href="#python图形化（1）" class="headerlink" title="python图形化（1）"></a>python图形化（1）</h1><p>作为一个向往图形化工具的网安人，频繁使用一些cmd脚本，多cmd窗口，总是让我心烦意乱。于是心生一计，为什么不能自己做一个综合型的图形化工具页面呢，那最便捷的脚本语言python语言肯定首当其冲。于是有了这一篇开发小日记的诞生。鄙人不会开发，只是小懂门道，<strong>大佬轻点喷</strong>。</p>
+<p>下面就看一看基本实现的思路。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs swift"><span class="hljs-number">1</span><span class="hljs-operator">、</span>构建基本<span class="hljs-type">UI界面</span><br><span class="hljs-number">2</span><span class="hljs-operator">、</span><span class="hljs-type">UI转为py文件</span><br><span class="hljs-number">3</span><span class="hljs-operator">、</span>相关事件绑定函数<br><span class="hljs-number">4</span><span class="hljs-operator">、</span>一些<span class="hljs-type">UI的小细节</span><br><span class="hljs-number">5</span><span class="hljs-operator">、</span>多页面联合<br><span class="hljs-number">6</span><span class="hljs-operator">、</span>转换exe文件<span class="hljs-operator">。</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="1、构建基本UI界面"><a href="#1、构建基本UI界面" class="headerlink" title="1、构建基本UI界面"></a>1、构建基本UI界面</h2><p>这是我们是基于pyqt5这个py库实现的，所以要先安装一些库</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake">pip <span class="hljs-keyword">install</span> PyQt5<br>pip <span class="hljs-keyword">install</span> PyQt5-tools<br></code></pre></td></tr></table></figure>
+
+<p>安装之后，我们直接全局搜索一个文件（我用的everything），designer.exe，这个就是我们设计UI的可执行文件。</p>
+<p><img src="https://s2.loli.net/2024/12/21/XenCV45OtRH8fzG.png" srcset="/img/loading.gif" lazyload alt="image-20241220215343401"></p>
+<p>直接创建一个</p>
+<p><img src="https://s2.loli.net/2024/12/21/GI1EpW3J8wYlZzV.png" srcset="/img/loading.gif" lazyload alt="image-20241220215435603"></p>
+<p>设置一个你想要的程序的基本页面大小</p>
+<p><img src="https://s2.loli.net/2024/12/21/CDjOBri8KTgbXWA.png" srcset="/img/loading.gif" lazyload alt="image-20241220215608972"></p>
+<p>然后就左边的状态栏就是一些基本的图窗、标签、按钮。下面就介绍一些常用的吧！</p>
+<p><img src="https://s2.loli.net/2024/12/21/Q8zvFZHK91IR5Mq.png" srcset="/img/loading.gif" lazyload alt="image-20241220220233434"></p>
+<p>还有</p>
+<p><img src="https://s2.loli.net/2024/12/20/Oui2Y6D1hmM3rS7.png" srcset="/img/loading.gif" lazyload alt="image-20241220221933932"></p>
+<p>然后就设计你想要的界面</p>
+<h2 id="2、UI转为py文件"><a href="#2、UI转为py文件" class="headerlink" title="2、UI转为py文件"></a>2、UI转为py文件</h2><p>然后ctr+s保存为.ui文件，然后使用以下命令把UI文件转换为py文件。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">pyuic5 -o destination<span class="hljs-selector-class">.py</span> source<span class="hljs-selector-class">.ui</span> <br></code></pre></td></tr></table></figure>
+
+<h2 id="3、相关事件绑定函数"><a href="#3、相关事件绑定函数" class="headerlink" title="3、相关事件绑定函数"></a>3、相关事件绑定函数</h2><p>如果全懵的情况下：可以参考一下Pyqt5的教程（但是我没有看，因为在实操的过程其实就会懂了）：</p>
+<p><a target="_blank" rel="noopener" href="https://www.cainiaoya.com/pyqt5/pyqt5-jiaocheng.html">https://www.cainiaoya.com/pyqt5/pyqt5-jiaocheng.html</a></p>
+<p>我们要把我们的一些按钮与一些函数绑定，函数有两种方式</p>
+<p>1、在类中定义函数，然后通过connect与类中的函数call_icpsearch相绑定</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">self<span class="hljs-selector-class">.pushButton_2</span><span class="hljs-selector-class">.clicked</span><span class="hljs-selector-class">.connect</span>(self.call_icpsearch) <br></code></pre></td></tr></table></figure>
+
+<p>2、函数在类外部，通过匿名函数的形式进行绑定。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">self<span class="hljs-selector-class">.pushButton_5</span><span class="hljs-selector-class">.clicked</span><span class="hljs-selector-class">.connect</span>(lambda: <span class="hljs-built_in">extract_ip</span>(self))<br></code></pre></td></tr></table></figure>
+
+<p>在函数setupUi里面去写代码，连接代码</p>
+<p><img src="https://s2.loli.net/2024/12/21/FVJp3uAxGCZTeO8.png" srcset="/img/loading.gif" lazyload alt="image-20241221105920424"></p>
+<p>然后在Ui_Dialog类中，写入我们的函数。</p>
+<p>我们先进行文本框的代码定位：</p>
+<p><img src="https://s2.loli.net/2024/12/21/oF5y2qkIPf9DXZn.png" srcset="/img/loading.gif" lazyload alt="image-20241221131511679"></p>
+<p>然后就是如何调用UI的一些按钮和文本了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python">我们确定一个文本为例（self.textBrowser）<br>self.textBrowser.toPlainText()  //获取文本的内容<br>self.textBrowser.clear()		//清空文本框<br>self.textBrowser.append()		//文本增加<br>self.textBrowser.setText()	//文本设置<br><br>简单写一个函数：<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">call_icpsearch</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-comment"># 获取每一行输入</span><br>        input_text = self.textEdit_4.toPlainText()<br>        lines = input_text.splitlines()  <span class="hljs-comment"># 按行分割</span><br><br>        <span class="hljs-comment"># 清空输出框</span><br>        self.textBrowser_2.clear()<br><br>        <span class="hljs-comment"># 逐行处理每一行数据</span><br>        <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> lines:<br>            line = line.strip()  <span class="hljs-comment"># 去除每行的空格和换行符</span><br>            <span class="hljs-keyword">if</span> line:  <span class="hljs-comment"># 如果该行不为空</span><br>                result = self.run_command(line)<br>                self.textBrowser_2.append(<span class="hljs-string">f&quot;查询：<span class="hljs-subst">&#123;line&#125;</span>\n结果：\n<span class="hljs-subst">&#123;result&#125;</span>\n<span class="hljs-subst">&#123;<span class="hljs-string">&#x27;-&#x27;</span> * <span class="hljs-number">40</span>&#125;</span>\n&quot;</span>)<br>     <br></code></pre></td></tr></table></figure>
+
+<p>待自己想要的功能都实现之后，可以把下述代码放在全部代码之后，运行即可</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    app = QtWidgets.QApplication(sys.argv)<br>    Dialog = QtWidgets.QDialog()<br>    ui = Ui_Dialog()<br>    ui.setupUi(Dialog)<br>    Dialog.show()<br>    sys.<span class="hljs-keyword">exit</span>(app.exec_())<br></code></pre></td></tr></table></figure>
+
+<h2 id="4、一些UI的小细节"><a href="#4、一些UI的小细节" class="headerlink" title="4、一些UI的小细节"></a>4、一些UI的小细节</h2><p>1、启动代码要放在全局，前面不能有缩进</p>
+<p>2、保存窗口标题栏的最小化、最大化、取消按钮。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">Dialog<span class="hljs-selector-class">.setWindowFlags</span>(QtCore<span class="hljs-selector-class">.Qt</span>.Window)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2024/12/21/91wB4JUcjk3N8zH.png" srcset="/img/loading.gif" lazyload alt="image-20241221132202286"></p>
+<p>3、调用本地程序的函数，最好不要放在主文件，我也不清楚为什么把调用本地程序的函数包装到其他py文件后，运行相关功能后，UI就会闪退。</p>
+<h2 id="5、多页面联合"><a href="#5、多页面联合" class="headerlink" title="5、多页面联合"></a>5、多页面联合</h2><p>使用QStackedWidget来组合。建一个main.py来管理各个界面</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 创建 QStackedWidget 来显示不同的页面</span><br>self.stackedWidget = QStackedWidget(MainWindow)<br>self.stackedWidget.setGeometry(QtCore.QRect(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1104</span>, <span class="hljs-number">876</span>))<br><br><span class="hljs-comment">#界面1的调用</span><br>        <span class="hljs-comment"># 页面 1 - 信息收集（加载 1.py 界面）</span><br>        self.page_1 = QtWidgets.QWidget()<br>        self.stackedWidget.addWidget(self.page_1)<br>        self.page_1_ui = Ui_Dialog()  <span class="hljs-comment"># 创建1.py界面实例</span><br>        self.page_1_ui.setupUi(self.page_1)  <span class="hljs-comment"># 加载1.py界面</span><br>        <br><span class="hljs-comment">#界面1的切换按钮</span><br>        <span class="hljs-comment"># 切换按钮</span><br>        self.button_1 = QtWidgets.QPushButton(MainWindow)<br>        self.button_1.setGeometry(QtCore.QRect(<span class="hljs-number">40</span>, <span class="hljs-number">10</span>, <span class="hljs-number">121</span>, <span class="hljs-number">26</span>))<br>        self.button_1.setText(<span class="hljs-string">&quot;信息收集&quot;</span>)<br>        self.button_1.clicked.connect(self.show_page_1)<br><span class="hljs-comment">#切换的函数</span><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">show_page_1</span>(<span class="hljs-params">self</span>):<br>        self.stackedWidget.setCurrentIndex(<span class="hljs-number">0</span>)  <span class="hljs-comment"># 显示页面1</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2024/12/21/J4BCRjqFgr7wGQV.png" srcset="/img/loading.gif" lazyload alt="image-20241221133210241"></p>
+<p><img src="https://s2.loli.net/2024/12/21/612IlGwAFsB3HJp.png" srcset="/img/loading.gif" lazyload alt="image-20241221133820229"></p>
+<p>然后就是启动代码</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    app = QApplication(sys.argv)<br><br>    <span class="hljs-comment"># 创建并初始化主界面</span><br>    MainWindow = QMainWindow()<br>    ui = Ui_MainWindow()  <span class="hljs-comment"># 创建主界面实例</span><br>    ui.setupUi(MainWindow)  <span class="hljs-comment"># 设置UI界面</span><br><br>    MainWindow.show()  <span class="hljs-comment"># 显示主界面</span><br><br>    sys.<span class="hljs-keyword">exit</span>(app.exec_())  <span class="hljs-comment"># 启动事件循环</span><br></code></pre></td></tr></table></figure>
+
+<p>多个界面就是以此去确定了。不过要记得把每个界面的py文件的类修改一下，一个Ui_Dialog，一个Ui_Dialog_2这种，不然会冲突。修改之后，也要在main.py中修改。</p>
+<h2 id="6、转换exe文件"><a href="#6、转换exe文件" class="headerlink" title="6、转换exe文件"></a>6、转换exe文件</h2><p>如何转换为exe文件？使用Pyinstaller包。</p>
+<p>pip install Pyinstaller</p>
+<p>然后直接Pyinstaller </p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs stylus">pyinstaller <span class="hljs-attr">--onefile</span> <span class="hljs-attr">--windowed</span> <span class="hljs-attr">--icon</span>=<span class="hljs-number">2</span>_QEM_icon<span class="hljs-selector-class">.ico</span> Yf_UI<span class="hljs-selector-class">.py</span><br><br><span class="hljs-attr">--windowed</span>：关闭窗口<br><span class="hljs-attr">--icon</span>=xxx.ico：设置程序图标<br>你可以把png、jpg等文件转换为ico图片<br>https:<span class="hljs-comment">//icoconvert.com/</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="成品展示"><a href="#成品展示" class="headerlink" title="成品展示"></a>成品展示</h2><p>下面就是我自己弄得一个基本小成品，不过我没有包装成exe文件。</p>
+<p>参考项目：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Yf3te/Yf_UI">https://github.com/Yf3te/Yf_UI</a></p>
+<p><img src="https://s2.loli.net/2024/12/21/Ue2copnvOPdZ98Q.png" srcset="/img/loading.gif" lazyload alt="image-20241221143342225"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>开发日记——python(1)</div>
+      <div>http://example.com/2024/12/21/开发日记——python-1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Yf3te</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年12月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/01/19/%E5%88%9D%E8%AF%86php%E4%BB%A3%E5%AE%A1%E2%80%94%E2%80%94baijiacms/" title="初识php代审——baijiacms">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">初识php代审——baijiacms</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/12/19/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E7%9A%84%E4%B9%90%E8%B6%A3/" title="信息收集的乐趣">
+                        <span class="hidden-mobile">信息收集的乐趣</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"nPsiBpqAh9nfJ5Dy1WuaF7QX-MdYXbMMI","appKey":"uHgPDZvMgamWIL1SjZs4NpY4","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量
+        <span id="leancloud-site-pv"></span>
+        次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数
+        <span id="leancloud-site-uv"></span>
+        人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/Cherry.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script><!-- hexo injector body_end end --></body>
+</html>
