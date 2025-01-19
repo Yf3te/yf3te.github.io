@@ -12,11 +12,3 @@
   -webkit-backdrop-filter: blur(var(--background-blur));
   backdrop-filter: blur(var(--background-blur));
 }
-
-/** 转载请注明出处！
-   本博客除特别声明外，均采用「[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)」许可协议。
-—— 本文作者：4rozeN
-—— 原文标题：fluid 全屏背景图随日夜模式切换和正文底页毛玻璃效果
-—— 原文链接：https://4rozen.github.io/archives/Hexo/60191.html#%E6%AF%9B%E7%8E%BB%E7%92%83%E5%BA%95%E9%A1%B5%E6%95%88%E6%9E%9C
-—— 原文字数：1.1k 字
-*/
