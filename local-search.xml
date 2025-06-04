@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>Diytools_Csharp</title>
+    <link href="/2025/06/04/Diytools-Csharp/"/>
+    <url>/2025/06/04/Diytools-Csharp/</url>
+    
+    <content type="html"><![CDATA[<meta name="referrer" content="no-referrer"/><h1 id="Diytools"><a href="#Diytools" class="headerlink" title="Diytools"></a>Diytools</h1><p>秒开你的cmd！（地址在文末！）</p><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>现在互联网上面的网络安全工具越来越多，而大部分都是命令行工具。频繁地打开目录、翻目录，再启动cmd命令行，总是让我身心疲惫。于是cmd管理工具——《Diytools》出世了。</p><p>一开始止步于用python写工具，初代Diytools（python版本）问世，但是python与命令行交互的各种问题让我抓耳挠腮，怎么改都始终会出现缺少字符、命令输出不完整、颜色渲染让人无以言喻。后续还是不甘心，最后了解到了C#可以直接调用原生的CMD。感觉到前途一片光明，那就开整，经过不懈的努力，总算给它干出来了！</p><p>那就展示吧。（小白开发，大佬勿喷！！！）</p><p><img src="https://s2.loli.net/2025/06/04/T4pulREYN5BeAZK.png" alt="image-20250604090014320"></p><h2 id="功能说明"><a href="#功能说明" class="headerlink" title="功能说明"></a>功能说明</h2><h3 id="主页面介绍"><a href="#主页面介绍" class="headerlink" title="主页面介绍"></a>主页面介绍</h3><p>主页面很简单，<strong>极简风</strong>！！！开局可以直接<strong>拉取边框</strong>调整大小。</p><p><img src="https://s2.loli.net/2025/06/04/MJySnVk7fHDKp25.png" alt="image-20250603175551620"></p><h3 id="搜索框"><a href="#搜索框" class="headerlink" title="搜索框"></a>搜索框</h3><p>这个无需多言，就是在我们工具太多的时候，方便直接定位！</p><p><img src="https://s2.loli.net/2025/06/04/KvCcW5gZy9Pj3ex.png"></p><h3 id="工具管理"><a href="#工具管理" class="headerlink" title="工具管理"></a>工具管理</h3><p>一触即发！添加、编辑、删除工具，应有尽有！还可以定义自己工具的图标哟！</p><p><img src="https://s2.loli.net/2025/06/04/i6ALVcvfuZCmnbD.png" alt="image-20250603180055538"></p><p><strong>补充说明</strong>：</p><p>路径：即工具的文件夹路径，后续点击工具可以实现&lt;—cd 路径  –&gt;的效果。</p><p>命令：<strong>cd 到上述工具路径后</strong>，执行的命令。</p><p><img src="https://s2.loli.net/2025/06/04/P6z5BgbCKXZFOSU.png" alt="image-20250603224112274"></p><p>配置后，点击左侧工具列表栏，就会自动到，E:\yf\7-tools\xxx\URLFinder下执行URLFinder -h</p><p><img src="https://s2.loli.net/2025/06/04/7Qx4ThNLufrIPWs.png" alt="image-20250603224237838"></p><h2 id="后续开发"><a href="#后续开发" class="headerlink" title="后续开发"></a>后续开发</h2><p>如果使用过程中有什么的问题，可以随时提、评论。如果师傅们觉得这个工具还行，留下您的star吧！！！</p><p>项目地址：<a href="https://github.com/Yf3te/Diytools_Csharp">https://github.com/Yf3te/Diytools_Csharp</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>由一次docker逃逸而起的docker总结</title>
     <link href="/2025/05/13/%E7%94%B1%E4%B8%80%E6%AC%A1docker%E9%80%83%E9%80%B8%E8%80%8C%E8%B5%B7%E7%9A%84docker%E6%80%BB%E7%BB%93/"/>
     <url>/2025/05/13/%E7%94%B1%E4%B8%80%E6%AC%A1docker%E9%80%83%E9%80%B8%E8%80%8C%E8%B5%B7%E7%9A%84docker%E6%80%BB%E7%BB%93/</url>
